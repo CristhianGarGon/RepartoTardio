@@ -1,4 +1,4 @@
-package dominio.entidades;
+/*package dominio.entidades;
 
 public class Direccion {
 
@@ -8,4 +8,4 @@ public class Direccion {
 	private String complemento;
 	private String municipio;
 
-}
+}*/

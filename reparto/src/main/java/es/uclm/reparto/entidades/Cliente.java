@@ -1,4 +1,4 @@
-package dominio.entidades;
+/*package dominio.entidades;
 
 import java.util.*;
 
@@ -11,4 +11,4 @@ public class Cliente extends Usuario {
 	private String apellidos;
 	private String dni;
 
-}
+}*/

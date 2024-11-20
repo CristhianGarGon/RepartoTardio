@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import es.uclm.RepartoDom.business.entity.Usuario;
+//import es.uclm.RepartoDom.business.entity.Usuario;
 
 @Controller
 public class RegistroController {

@@ -1,4 +1,4 @@
-package dominio.entidades;
+/*package dominio.entidades;
 
 public class ServicioEntrega {
 
@@ -8,4 +8,4 @@ public class ServicioEntrega {
 	private DateTime fechaRecepcion;
 	private DateTime fechaEntrega;
 
-}
+}*/

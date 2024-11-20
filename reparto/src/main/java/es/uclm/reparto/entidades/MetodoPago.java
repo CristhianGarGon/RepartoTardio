@@ -1,6 +1,6 @@
-package dominio.entidades;
+/*package dominio.entidades;
 
 public enum MetodoPago {
 	PAYPAL,
 	CREDIT_CARD
-}
+}*/

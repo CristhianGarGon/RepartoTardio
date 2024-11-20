@@ -1,15 +1,15 @@
-package dominio.controladores;
+//package dominio.controladores;
 
-public class GestorLogin {
+//public class GestorLogin {
 
 	/**
 	 * 
 	 * @param id
 	 * @param pass
 	 */
-	public void login(String id, String pass) {
+	//public void login(String id, String pass) {
 		// TODO - implement GestorLogin.login
-		throw new UnsupportedOperationException();
-	}
+		//throw new UnsupportedOperationException();
+	//}
 
-}
+//}

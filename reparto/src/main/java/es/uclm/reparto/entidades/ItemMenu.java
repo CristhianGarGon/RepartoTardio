@@ -1,4 +1,4 @@
-package dominio.entidades;
+/*package dominio.entidades;
 
 public class ItemMenu {
 
@@ -6,4 +6,4 @@ public class ItemMenu {
 	private String nombre;
 	private double precio;
 
-}
+}*/
