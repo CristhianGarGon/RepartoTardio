@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menú Inicial</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Bienvenido al Menú Inicial</h1>
+    <ul>
+        <li><a th:href="@{/anonimo}">Continuar como Usuario Anónimo</a></li>
+        <li><a th:href="@{/registro}">Crear un Usuario Nuevo</a></li>
+        <li><a th:href="@{/login}">Iniciar Sesión</a></li>
+    </ul>
+</body>
+</html>
