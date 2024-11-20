@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 
 package es.uclm.reparto.business.entidades;
-=======
-/*
-package es.uclm.RepartoDom.business.entity;
->>>>>>> branch 'master' of https://github.com/CristhianGarGon/RepartoTardio.git
 
 public class Usuario {
 
@@ -54,4 +49,4 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
-}*/
+}
