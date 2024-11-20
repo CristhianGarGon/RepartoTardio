@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registro Exitoso</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Registro Exitoso</h1>
+    <p>¡Gracias por registrarte, <span th:text="${usuario.nombre}"></span>!</p>
+    <p>Tu rol seleccionado es: <span th:text="${usuario.rol}"></span>.</p>
+	<p>
+		<input type="submit" value="Volver al menu inicial" /> 
+	</p>
+</body>
+</html>
