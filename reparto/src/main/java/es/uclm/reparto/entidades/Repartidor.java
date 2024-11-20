@@ -1,4 +1,4 @@
-package dominio.entidades;
+/*package dominio.entidades;
 
 import java.util.*;
 
@@ -11,4 +11,4 @@ public class Repartidor extends Usuario {
 	private String nif;
 	private int eficiencia;
 
-}
+}*/

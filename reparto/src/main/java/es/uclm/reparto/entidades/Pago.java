@@ -1,4 +1,4 @@
-package dominio.entidades;
+/*package dominio.entidades;
 
 public class Pago {
 
@@ -7,4 +7,4 @@ public class Pago {
 	private UUID idTransaccion;
 	private Date fechaTransaccion;
 
-}
+}*/

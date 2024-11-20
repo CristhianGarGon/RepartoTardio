@@ -1,4 +1,4 @@
-
+/*
 package es.uclm.RepartoDom.business.entity;
 
 public class Usuario {
@@ -49,4 +49,4 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
-}
+}*/

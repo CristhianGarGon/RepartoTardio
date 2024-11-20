@@ -1,39 +1,39 @@
-package dominio.controladores;
+//package dominio.controladores;
 
-import persistencia.*;
-import dominio.entidades.*;
+//import persistencia.*;
+//import dominio.entidades.*;
 
-public class GestorClientes {
+//public class GestorClientes {
 
-	RestauranteDAO restauranteDAO;
+	//RestauranteDAO restauranteDAO;
 
 	/**
 	 * 
 	 * @param zona
 	 */
-	public List<Restaurante> buscarRestaurante(CodigoPostal zona) {
+	//public List<Restaurante> buscarRestaurante(CodigoPostal zona) {
 		// TODO - implement GestorClientes.buscarRestaurante
-		throw new UnsupportedOperationException();
-	}
+		//throw new UnsupportedOperationException();
+	//}
 
 	/**
 	 * 
 	 * @param cadenaBusqueda
 	 */
-	public List<Restaurante> buscarRestaurante(String cadenaBusqueda) {
+	//public List<Restaurante> buscarRestaurante(String cadenaBusqueda) {
 		// TODO - implement GestorClientes.buscarRestaurante
-		throw new UnsupportedOperationException();
-	}
+		//throw new UnsupportedOperationException();
+	//}
 
 	/**
 	 * 
 	 * @param cliente
 	 * @param r
 	 */
-	public void favorito(Cliente cliente, Restaurante r) {
+	//public void favorito(Cliente cliente, Restaurante r) {
 		// TODO - implement GestorClientes.favorito
-		throw new UnsupportedOperationException();
-	}
+		//throw new UnsupportedOperationException();
+	//}
 
 	/**
 	 * 
@@ -41,10 +41,10 @@ public class GestorClientes {
 	 * @param apellido
 	 * @param d
 	 */
-	public Cliente registrarCliente(String nombre, String apellido, Direccion d) {
+	//public Cliente registrarCliente(String nombre, String apellido, Direccion d) {
 		// TODO - implement GestorClientes.registrarCliente
-		throw new UnsupportedOperationException();
-	}
+		//throw new UnsupportedOperationException();
+	//}
 
 	/**
 	 * 
@@ -54,9 +54,9 @@ public class GestorClientes {
 	 * @param cp
 	 * @param municipio
 	 */
-	private Direccion altaDirecion(String calle, String numeero, String complemento, CodigoPostal cp, String municipio) {
+	//private Direccion altaDirecion(String calle, String numeero, String complemento, CodigoPostal cp, String municipio) {
 		// TODO - implement GestorClientes.altaDirecion
-		throw new UnsupportedOperationException();
-	}
+		//throw new UnsupportedOperationException();
+	//}
 
-}
+//}

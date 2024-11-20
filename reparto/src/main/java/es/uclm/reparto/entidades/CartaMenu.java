@@ -1,4 +1,4 @@
-package dominio.entidades;
+/*package dominio.entidades;
 
 import java.util.*;
 
@@ -8,4 +8,4 @@ public class CartaMenu {
 	Collection<ItemMenu> items;
 	private String nombre;
 
-}
+}*/

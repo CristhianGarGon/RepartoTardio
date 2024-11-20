@@ -1,4 +1,4 @@
-package es.uclm.RepartoDom.business.controller;
+package es.uclm.reparto.business.controladores;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import es.uclm.RepartoDom.business.entity.Usuario;
+//import es.uclm.RepartoDom.business.entity.Usuario;
 
 @Controller
 public class RegistroController {
