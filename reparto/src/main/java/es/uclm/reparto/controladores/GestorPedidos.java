@@ -1,13 +1,14 @@
-package dominio.controladores;
 
-import persistencia.*;
-import dominio.entidades.*;
+//package dominio.controladores;
 
-public class GestorPedidos {
+//import persistencia.*;
+//import dominio.entidades.*;
 
-	PedidoDAO pedidoDAO;
-	ServicioEntregaDAO servicioEntregaDAO;
-	Pedido pedidoEnMarcha;
+//public class GestorPedidos {
+
+	//PedidoDAO pedidoDAO;
+	//ServicioEntregaDAO servicioEntregaDAO;
+	//Pedido pedidoEnMarcha;
 
 	/**
 	 * 
@@ -15,55 +16,55 @@ public class GestorPedidos {
 	 * @param r
 	 * @param items
 	 */
-	public void realizarPedido(Cliente c, Restaurante r, List<ItemMenu> items) {
+	//public void realizarPedido(Cliente c, Restaurante r, List<ItemMenu> items) {
 		// TODO - implement GestorPedidos.realizarPedido
-		throw new UnsupportedOperationException();
-	}
+		//throw new UnsupportedOperationException();
+	//}
 
 	/**
 	 * 
 	 * @param p
 	 */
-	private boolean realizarPago(Pedido p) {
+	//private boolean realizarPago(Pedido p) {
 		// TODO - implement GestorPedidos.realizarPago
-		throw new UnsupportedOperationException();
-	}
+		//throw new UnsupportedOperationException();
+	//}
 
 	/**
 	 * 
 	 * @param p
 	 * @param d
 	 */
-	private ServicioEntrega crearServicioEntrega(Pedido p, Direccion d) {
+//	private ServicioEntrega crearServicioEntrega(Pedido p, Direccion d) {
 		// TODO - implement GestorPedidos.crearServicioEntrega
-		throw new UnsupportedOperationException();
-	}
+	//	throw new UnsupportedOperationException();
+	//}
 
 	/**
 	 * 
 	 * @param item
 	 */
-	public void añadirItemMenu(itemMenu item) {
-		// TODO - implement GestorPedidos.añadirItemMenu
-		throw new UnsupportedOperationException();
-	}
+	//public void aï¿½adirItemMenu(itemMenu item) {
+		// TODO - implement GestorPedidos.aï¿½adirItemMenu
+	//	throw new UnsupportedOperationException();
+	//}
 
 	/**
 	 * 
 	 * @param item
 	 */
-	public void eliminarItemMenu(itemMenu item) {
+//	public void eliminarItemMenu(itemMenu item) {
 		// TODO - implement GestorPedidos.eliminarItemMenu
-		throw new UnsupportedOperationException();
-	}
+//		throw new UnsupportedOperationException();
+//	}
 
 	/**
 	 * 
 	 * @param resaturante
 	 */
-	public void comenzarPedido(Restaurante resaturante) {
+//	public void comenzarPedido(Restaurante resaturante) {
 		// TODO - implement GestorPedidos.comenzarPedido
-		throw new UnsupportedOperationException();
-	}
+//		throw new UnsupportedOperationException();
+//	}
 
-}
+//}
