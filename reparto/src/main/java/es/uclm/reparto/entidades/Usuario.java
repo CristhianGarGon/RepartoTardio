@@ -1,5 +1,5 @@
 
-package es.uclm.RepartoDom.business.entity;
+package es.uclm.reparto.business.entidades;
 
 public class Usuario {
 
