@@ -1,4 +1,4 @@
-package es.uclm.reparto.business.controladores;
+package es.uclm.reparto.controladores;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
