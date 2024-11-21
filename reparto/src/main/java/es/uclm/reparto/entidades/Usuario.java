@@ -20,7 +20,7 @@ public class Usuario {
     private String apellido;
 
     @Column
-    private String nick; // Nombre de usuario para login
+    private String nickname; // Nombre de usuario para login
 
     @Column
     private String password; // Contraseña
@@ -36,7 +36,7 @@ public class Usuario {
     public Usuario(String nombre, String apellido, String usuario, String password, String rol) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.nick = usuario;
+        this.nickname = usuario;
         this.password = password;
         this.rol = rol;
     }
@@ -66,12 +66,12 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public String getNick() {
-        return nick;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setNickname(String nick) {
+        this.nickname = nick;
     }
 
     public String getPassword() {
@@ -93,6 +93,6 @@ public class Usuario {
     @Override
     public String toString() {
         return String.format("Usuario [id=%s, nombre=%s, apellido=%s, nick=%s, rol=%s]", 
-                             id, nombre, apellido, nick, rol);
+                             id, nombre, apellido, nickname, rol);
     }
 }

@@ -9,15 +9,15 @@
     <form th:action="@{/registro}" th:object="${usuario}" method="post">
         <p>Nombre: <input type="text" th:field="*{nombre}" required /></p>
         <p>Apellido: <input type="text" th:field="*{apellido}" required /></p>
-        <p>Usuario: <input type="text" th:field="*{nick}" required /></p>
+        <p>Usuario: <input type="text" th:field="*{nickname}" required /></p>
         <p>Contraseña: <input type="password" th:field="*{password}" required /></p>
-        <!--<p>Rol: 
+        <p>Rol: 
             <select th:field="*{rol}" required>
                 <option value="CLIENTE">Cliente</option>
                 <option value="RESTAURANTE">Restaurante</option>
                 <option value="REPARTIDOR">Repartidor</option>
             </select>
-        </p>-->
+        </p>
         <p>
             <input type="submit" value="Registrarse" />
         </p>
