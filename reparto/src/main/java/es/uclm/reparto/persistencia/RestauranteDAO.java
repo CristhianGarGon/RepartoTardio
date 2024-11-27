@@ -1,26 +1,8 @@
-//package persistencia;
+package es.uclm.reparto.persistencia;
 
-//import dominio.entidades.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-//public class RestauranteDAO extends EntityDAO {
+import es.uclm.reparto.entidades.Restaurante;
 
-	/**
-	 * 
-	 * @param codigoPostal
-	 */
-	//public void selectPorCodigoPostal(CodigoPostal codigoPostal) {
-		// TODO - implement RestauranteDAO.selectPorCodigoPostal
-		//throw new UnsupportedOperationException();
-	//}
-
-	/**
-	 * 
-	 * @param codigoPostal
-	 * @param texto
-	 */
-	//public void selectPorCodigoPostalYTextoLibre(CodigoPostal codigoPostal, String texto) {
-		// TODO - implement RestauranteDAO.selectPorCodigoPostalYTextoLibre
-		//throw new UnsupportedOperationException();
-	//}
-
-//}
+public interface RestauranteDAO extends JpaRepository<Restaurante, Long> {
+}

@@ -26,4 +26,5 @@ public class MenuController {
     public String iniciarSesion() {
         return "login"; // Renderiza el archivo `login.html`
     }
+
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Menú</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Editar Menú</h1>
+    <form th:action="@{/editarMenu}" th:object="${restaurante}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <p>Nombre: <input type="text" th:field="*{nombre}" readonly /></p>
+        <p>Dirección: <input type="text" th:field="*{direccion}" readonly /></p>
+        <h2>Menú</h2>
+        <div th:each="item, iterStat : ${restaurante.menu}">
+            <p>Plato: <input type="text" th:field="*{menu[iterStat.index].nombre}" required /></p>
+            <p>Precio: <input type="number" th:field="*{menu[iterStat.index].precio}" step="0.01" required /></p>
+        </div>
+        <p>
+            <button type="button" th:onclick="addMenuItem()">Añadir Plato</button>
+        </p>
+        <p>
+            <input type="submit" value="Actualizar Menú" />
+        </p>
+    </form>
+</body>
+</html>
