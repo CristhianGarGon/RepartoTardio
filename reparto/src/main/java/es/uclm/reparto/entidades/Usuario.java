@@ -14,12 +14,6 @@ public class Usuario {
     private Long id;
 
     @Column
-    private String nombre;
-
-    @Column
-    private String apellido;
-
-    @Column
     private String nickname; // Nombre de usuario para login
 
     @Column
@@ -34,8 +28,6 @@ public class Usuario {
 
     // Constructor con parámetros
     public Usuario(String nombre, String apellido, String usuario, String password, String rol) {
-        this.nombre = nombre;
-        this.apellido = apellido;
         this.nickname = usuario;
         this.password = password;
         this.rol = rol;
@@ -50,21 +42,6 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
 
     public String getNickname() {
         return nickname;
@@ -93,6 +70,6 @@ public class Usuario {
     @Override
     public String toString() {
         return String.format("Usuario [id=%s, nombre=%s, apellido=%s, nick=%s, rol=%s]", 
-                             id, nombre, apellido, nickname, rol);
+                             id, nickname, rol);
     }
 }

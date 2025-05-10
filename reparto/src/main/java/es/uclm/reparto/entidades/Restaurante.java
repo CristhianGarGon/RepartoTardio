@@ -1,14 +1,7 @@
 package es.uclm.reparto.entidades;
 
+import jakarta.persistence.*;
 import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Restaurante {
@@ -17,25 +10,23 @@ public class Restaurante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String nombre;
 
+    @Column
     private String direccion;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "restaurante_id")
-    private List<ItemMenu> menu; // Menú del restaurante
+    private List<ItemMenu> menu;
 
-    // Constructor vacío
     public Restaurante() {}
 
-    // Constructor con parámetros
-    public Restaurante(String nombre, String direccion, List<ItemMenu> menu) {
+    public Restaurante(String nombre, String direccion) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.menu = menu;
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -66,5 +57,10 @@ public class Restaurante {
 
     public void setMenu(List<ItemMenu> menu) {
         this.menu = menu;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Restaurante [id=%s, nombre=%s, direccion=%s]", id, nombre, direccion);
     }
 }

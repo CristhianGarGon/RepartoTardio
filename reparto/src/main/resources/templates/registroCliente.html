@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registro de Cliente</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Registro de Cliente</h1>
+    <form th:action="@{/registroCliente}" th:object="${cliente}" method="post">
+        <p>
+            <label for="nombre">Nombre:</label>
+            <input type="text" th:field="*{nombre}" id="nombre" placeholder="Nombre" required />
+        </p>
+        <p>
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" th:field="*{apellidos}" id="apellidos" placeholder="Apellidos" required />
+        </p>
+        <p>
+            <label for="dni">DNI:</label>
+            <input type="text" th:field="*{dni}" id="dni" placeholder="DNI" required />
+        </p>
+        <button type="submit">Registrar</button>
+    </form>
+</body>
+</html>

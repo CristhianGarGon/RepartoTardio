@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registro de Repartidor</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Registro de Repartidor</h1>
+    <form th:action="@{/registroRepartidor}" th:object="${repartidor}" method="post">
+        <p>
+            <label for="nombre">Nombre:</label>
+            <input type="text" th:field="*{nombre}" id="nombre" placeholder="Nombre" required />
+        </p>
+        <p>
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" th:field="*{apellidos}" id="apellidos" placeholder="Apellidos" required />
+        </p>
+        <p>
+            <label for="nif">NIF:</label>
+            <input type="text" th:field="*{nif}" id="nif" placeholder="NIF" required />
+        </p>
+        <p>
+            <label for="eficiencia">Eficiencia:</label>
+            <input type="number" th:field="*{eficiencia}" id="eficiencia" placeholder="Eficiencia" required />
+        </p>
+        <p>
+            <label for="zonas">Zonas:</label>
+            <input type="text" th:field="*{zonas}" id="zonas" placeholder="Zonas (separadas por comas)" required />
+        </p>
+        <button type="submit">Registrar</button>
+    </form>
+</body>
+</html>

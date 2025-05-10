@@ -17,14 +17,14 @@ public class MenuController {
         return "anonimo"; // Renderiza el archivo `anonimo.html`
     }
 
-    @GetMapping("/registro-usuario")
-    public String registrarUsuario() {
-        return "registro"; // Renderiza el archivo `registro.html`
-    }
+    // ❌ ELIMINAR ESTE MÉTODO DUPLICADO
+    // @GetMapping("/seleccionarTipoUsuario")
+    // public String registrarUsuario() {
+    //     return "seleccionarTipoUsuario";
+    // }
 
     @GetMapping("/login")
     public String iniciarSesion() {
         return "login"; // Renderiza el archivo `login.html`
     }
-
 }

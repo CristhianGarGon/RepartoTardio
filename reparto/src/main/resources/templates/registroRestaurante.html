@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registro de Restaurante</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Registro de Restaurante</h1>
+    <form th:action="@{/registroRestaurante}" th:object="${restaurante}" method="post">
+        <p>
+            <label for="nombre">Nombre:</label>
+            <input type="text" th:field="*{nombre}" id="nombre" placeholder="Nombre del Restaurante" required />
+        </p>
+        <p>
+            <label for="direccion">Dirección:</label>
+            <input type="text" th:field="*{direccion}" id="direccion" placeholder="Dirección" required />
+        </p>
+        <button type="submit">Registrar</button>
+    </form>
+</body>
+</html>
