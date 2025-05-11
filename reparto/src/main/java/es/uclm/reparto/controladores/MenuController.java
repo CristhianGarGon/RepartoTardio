@@ -23,8 +23,9 @@ public class MenuController {
     //     return "seleccionarTipoUsuario";
     // }
 
+    /*
     @GetMapping("/login")
     public String iniciarSesion() {
         return "login"; // Renderiza el archivo `login.html`
-    }
+    } */
 }

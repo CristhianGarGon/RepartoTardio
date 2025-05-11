@@ -1,62 +1,28 @@
-//package dominio.controladores;
+package es.uclm.reparto.controladores;
 
-//import persistencia.*;
-//import dominio.entidades.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-//public class GestorClientes {
+@Controller
+@RequestMapping("/cliente")
+public class GestorClientes{
 
-	//RestauranteDAO restauranteDAO;
+    @GetMapping("/buscarRestaurantes")
+    public String buscarRestaurantes(Model model) {
+        // Aquí añadirías los restaurantes al modelo
+        return "buscarRestaurantes";
+    }
 
-	/**
-	 * 
-	 * @param zona
-	 */
-	//public List<Restaurante> buscarRestaurante(CodigoPostal zona) {
-		// TODO - implement GestorClientes.buscarRestaurante
-		//throw new UnsupportedOperationException();
-	//}
+    @GetMapping("/verFavoritos")
+    public String verFavoritos(Model model) {
+        // Aquí añadirías los favoritos del cliente
+        return "favoritos";
+    }
 
-	/**
-	 * 
-	 * @param cadenaBusqueda
-	 */
-	//public List<Restaurante> buscarRestaurante(String cadenaBusqueda) {
-		// TODO - implement GestorClientes.buscarRestaurante
-		//throw new UnsupportedOperationException();
-	//}
-
-	/**
-	 * 
-	 * @param cliente
-	 * @param r
-	 */
-	//public void favorito(Cliente cliente, Restaurante r) {
-		// TODO - implement GestorClientes.favorito
-		//throw new UnsupportedOperationException();
-	//}
-
-	/**
-	 * 
-	 * @param nombre
-	 * @param apellido
-	 * @param d
-	 */
-	//public Cliente registrarCliente(String nombre, String apellido, Direccion d) {
-		// TODO - implement GestorClientes.registrarCliente
-		//throw new UnsupportedOperationException();
-	//}
-
-	/**
-	 * 
-	 * @param calle
-	 * @param numeero
-	 * @param complemento
-	 * @param cp
-	 * @param municipio
-	 */
-	//private Direccion altaDirecion(String calle, String numeero, String complemento, CodigoPostal cp, String municipio) {
-		// TODO - implement GestorClientes.altaDirecion
-		//throw new UnsupportedOperationException();
-	//}
-
-//}
+    @GetMapping("/realizarPedido")
+    public String realizarPedido(Model model) {
+        // Aquí se mostraría el formulario de pedido
+        return "formularioPedido";
+    }
+}

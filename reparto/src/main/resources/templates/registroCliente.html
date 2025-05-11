@@ -7,18 +7,21 @@
 <body>
     <h1>Registro de Cliente</h1>
     <form th:action="@{/registroCliente}" th:object="${cliente}" method="post">
-        <p>
-            <label for="nombre">Nombre:</label>
-            <input type="text" th:field="*{nombre}" id="nombre" placeholder="Nombre" required />
-        </p>
-        <p>
-            <label for="apellidos">Apellidos:</label>
-            <input type="text" th:field="*{apellidos}" id="apellidos" placeholder="Apellidos" required />
-        </p>
-        <p>
-            <label for="dni">DNI:</label>
-            <input type="text" th:field="*{dni}" id="dni" placeholder="DNI" required />
-        </p>
+        <p><label for="nombre">Nombre:</label>
+        <input type="text" th:field="*{nombre}" id="nombre" required /></p>
+
+        <p><label for="apellidos">Apellidos:</label>
+        <input type="text" th:field="*{apellidos}" id="apellidos" required /></p>
+
+        <p><label for="dni">DNI:</label>
+        <input type="text" th:field="*{dni}" id="dni" required /></p>
+
+        <p><label for="nickname">Usuario:</label>
+        <input type="text" name="nickname" required /></p>
+
+        <p><label for="password">Contraseña:</label>
+        <input type="password" name="password" required /></p>
+
         <button type="submit">Registrar</button>
     </form>
 </body>
