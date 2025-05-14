@@ -1,9 +1,6 @@
 package es.uclm.reparto.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class ItemMenu {
@@ -12,40 +9,49 @@ public class ItemMenu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nombre;
-    private Double precio;
 
-    // Constructor vacío
+    @Column(nullable = false)
+    private double precio;
+
+    @Enumerated(EnumType.STRING)
+    private TipoItem tipo;
+    
+    @ManyToOne
+    private Restaurante restaurante;
+
+    public enum TipoItem {
+        COMIDA, BEBIDA, POSTRE
+    }
+
     public ItemMenu() {}
 
-    // Constructor con parámetros
-    public ItemMenu(String nombre, Double precio) {
+    public ItemMenu(String nombre, double precio, TipoItem tipo) {
         this.nombre = nombre;
         this.precio = precio;
+        this.tipo = tipo;
     }
 
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
+    // Getters y setters
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public String getNombre() { return nombre; }
 
-    public Double getPrecio() {
-        return precio;
-    }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
+    public double getPrecio() { return precio; }
+
+    public void setPrecio(double precio) { this.precio = precio; }
+
+    public TipoItem getTipo() { return tipo; }
+
+    public void setTipo(TipoItem tipo) { this.tipo = tipo; }
+    
+    public Restaurante getRestaurante() { return restaurante; }
+    
+    public void setRestaurante(Restaurante restaurante) { this.restaurante = restaurante; }
 }

@@ -1,13 +1,13 @@
 package es.uclm.reparto.controladores;
 
 import es.uclm.reparto.entidades.Restaurante;
+import es.uclm.reparto.entidades.Usuario;
 import es.uclm.reparto.persistencia.RestauranteDAO;
+import es.uclm.reparto.persistencia.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class RegistroRestauranteController {
@@ -15,15 +15,31 @@ public class RegistroRestauranteController {
     @Autowired
     private RestauranteDAO restauranteDAO;
 
+    @Autowired
+    private UsuarioDAO usuarioDAO;
+
     @GetMapping("/registroRestaurante")
     public String mostrarFormularioRegistroRestaurante(Model model) {
-        model.addAttribute("restaurante", new Restaurante()); // Objeto vacío para el formulario
-        return "registroRestaurante"; // Renderiza el HTML
+        model.addAttribute("restaurante", new Restaurante());
+        return "registroRestaurante";
     }
 
     @PostMapping("/registroRestaurante")
-    public String procesarRegistroRestaurante(@ModelAttribute Restaurante restaurante) {
-        restauranteDAO.save(restaurante); // Guarda el restaurante en la base de datos
-        return "registroExitoso"; // Redirige a la página de éxito
+    public String procesarRegistroRestaurante(@ModelAttribute Restaurante restaurante,
+                                              @RequestParam String nickname,
+                                              @RequestParam String password,
+                                              Model model) {
+        // Guardar restaurante
+        restauranteDAO.save(restaurante);
+
+        // Crear y guardar usuario asociado
+        Usuario usuario = new Usuario();
+        usuario.setNickname(nickname);
+        usuario.setPassword(password);
+        usuario.setRol("RESTAURANTE");
+        usuarioDAO.save(usuario);
+
+        model.addAttribute("usuario", usuario);
+        return "registroExitoso";
     }
 }

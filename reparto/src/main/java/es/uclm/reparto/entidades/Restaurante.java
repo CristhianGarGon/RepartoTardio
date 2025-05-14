@@ -1,7 +1,9 @@
 package es.uclm.reparto.entidades;
 
-import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Restaurante {
@@ -10,57 +12,29 @@ public class Restaurante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String nombre;
-
-    @Column
     private String direccion;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "restaurante_id")
-    private List<ItemMenu> menu;
+    @OneToOne
+    private Usuario usuario;
+    
+    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
+    private List<ItemMenu> menu = new ArrayList<>();
 
-    public Restaurante() {}
+    // Getters y Setters
+    public Long getId() { return id; }
 
-    public Restaurante(String nombre, String direccion) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getNombre() { return nombre; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getDireccion() { return direccion; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public void setDireccion(String direccion) { this.direccion = direccion; }
 
-    public String getDireccion() {
-        return direccion;
-    }
+    public Usuario getUsuario() { return usuario; }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public List<ItemMenu> getMenu() {
-        return menu;
-    }
-
-    public void setMenu(List<ItemMenu> menu) {
-        this.menu = menu;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Restaurante [id=%s, nombre=%s, direccion=%s]", id, nombre, direccion);
-    }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 }

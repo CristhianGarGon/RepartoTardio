@@ -1,53 +1,44 @@
 package es.uclm.reparto.controladores;
 
-import java.util.ArrayList;
-
+import es.uclm.reparto.entidades.ItemMenu;
+import es.uclm.reparto.persistencia.ItemMenuDAO;
+import es.uclm.reparto.entidades.Restaurante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import es.uclm.reparto.entidades.Restaurante;
-import es.uclm.reparto.persistencia.RestauranteDAO;
+import java.util.List;
 
 @Controller
+@RequestMapping("/restaurante")
 public class RestauranteController {
 
     @Autowired
-    private RestauranteDAO restauranteDAO; // Instancia inyectada del repositorio
+    private ItemMenuDAO itemMenuDAO;
 
-    // Mostrar el formulario para registrar un restaurante con su menú inicial
-    @GetMapping("/altaRestaurante")
-    public String mostrarFormularioAlta(Model model) {
-        Restaurante restaurante = new Restaurante();
-        restaurante.setMenu(new ArrayList<>()); // Inicializa la lista del menú
-        model.addAttribute("restaurante", restaurante);
-        return "altaRestaurante";
+    @GetMapping("/menu")
+    public String mostrarMenuRestaurante() {
+        return "restauranteMenu";
     }
 
-    // Procesar la alta de restaurante con menú inicial
-    @PostMapping("/altaRestaurante")
-    public String procesarAltaRestaurante(@ModelAttribute Restaurante restaurante, Model model) {
-        restauranteDAO.save(restaurante); // Guarda el restaurante y su menú en la base de datos
-        return "altaExitosa";
+    @GetMapping("/crearMenu")
+    public String mostrarFormularioCrearMenu(Model model) {
+        model.addAttribute("itemMenu", new ItemMenu());
+        model.addAttribute("tipos", ItemMenu.TipoItem.values());
+        return "crearMenu";
     }
 
-    // Mostrar el formulario para editar el menú de un restaurante
-    @GetMapping("/editarMenu/{id}")
-    public String mostrarFormularioEdicionMenu(@PathVariable Long id, Model model) {
-        Restaurante restaurante = restauranteDAO.findById(id) // Uso correcto de la instancia inyectada
-                .orElseThrow(() -> new IllegalArgumentException("Restaurante no encontrado"));
-        model.addAttribute("restaurante", restaurante);
+    @PostMapping("/crearMenu")
+    public String procesarFormularioCrearMenu(@ModelAttribute ItemMenu itemMenu) {
+        itemMenuDAO.save(itemMenu);
+        return "redirect:/restaurante/editarMenu";
+    }
+
+    @GetMapping("/editarMenu")
+    public String mostrarFormularioEditarMenu(Model model) {
+        List<ItemMenu> items = itemMenuDAO.findAll();
+        model.addAttribute("items", items);
         return "editarMenu";
-    }
-
-    // Procesar la actualización del menú
-    @PostMapping("/editarMenu")
-    public String procesarEdicionMenu(@ModelAttribute Restaurante restaurante, Model model) {
-        restauranteDAO.save(restaurante); // Uso correcto de la instancia inyectada
-        return "edicionExitosa";
     }
 }

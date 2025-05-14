@@ -9,7 +9,7 @@ public class MenuController {
 
     @GetMapping("/")
     public String mostrarMenu(Model model) {
-        return "menu"; // Renderiza el archivo `menu.html`
+        return "menuInicial"; // Renderiza el archivo `menuInicial.html`
     }
 
     @GetMapping("/anonimo")

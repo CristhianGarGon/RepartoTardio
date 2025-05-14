@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recoger Pedido</title>
+</head>
+<body>
+    <h1>Registrar Recogida</h1>
+    <form th:action="@{/repartidor/recogerPedido}" method="post">
+        <p>ID del Pedido: <input type="text" name="pedidoId" required /></p>
+        <button type="submit">Confirmar Recogida</button>
+    </form>
+</body>
+</html>

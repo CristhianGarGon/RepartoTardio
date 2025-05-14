@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menú del Restaurante</title>
+</head>
+<body>
+<h1 th:text="'Menú de ' + ${restaurante.nombre}"></h1>
+<ul>
+    <li th:each="item : ${menu}">
+        <span th:text="${item.nombre} + ' (' + ${item.tipo} + ') - ' + ${item.precio} + '€'"></span>
+        <!-- Aquí luego añadiremos botón para añadir al pedido -->
+    </li>
+</ul>
+</body>
+</html>

@@ -36,6 +36,6 @@ public class RegistroController {
         Usuario usuarioGuardado = usuarioDAO.save(usuario);
         log.info("Usuario guardado: {}", usuarioGuardado);
 
-        return "registroExitoso"; // Renderiza la plantilla de confirmación
+        return "redirect:/login"; // Renderiza la plantilla de confirmación
     }
 }
