@@ -2,7 +2,11 @@ package es.uclm.reparto.controladores;
 
 import es.uclm.reparto.entidades.ItemMenu;
 import es.uclm.reparto.persistencia.ItemMenuDAO;
+import es.uclm.reparto.persistencia.RestauranteDAO;
+import jakarta.servlet.http.HttpSession;
 import es.uclm.reparto.entidades.Restaurante;
+import es.uclm.reparto.entidades.Usuario;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +20,9 @@ public class RestauranteController {
 
     @Autowired
     private ItemMenuDAO itemMenuDAO;
+    
+    @Autowired
+    private RestauranteDAO restauranteDAO;
 
     @GetMapping("/menu")
     public String mostrarMenuRestaurante() {
@@ -30,8 +37,15 @@ public class RestauranteController {
     }
 
     @PostMapping("/crearMenu")
-    public String procesarFormularioCrearMenu(@ModelAttribute ItemMenu itemMenu) {
-        itemMenuDAO.save(itemMenu);
+    public String procesarFormularioCrearMenu(@ModelAttribute ItemMenu itemMenu, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Restaurante restaurante = restauranteDAO.findByUsuario(usuario);
+
+        if (restaurante != null) {
+            itemMenu.setRestaurante(restaurante);
+            itemMenuDAO.save(itemMenu);
+        }
+
         return "redirect:/restaurante/editarMenu";
     }
 

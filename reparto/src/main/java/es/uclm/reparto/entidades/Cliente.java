@@ -26,10 +26,6 @@ public class Cliente {
 
     @Column
     private String direcciones;
-    
-    @Column
-    private String favoritos; // Ejemplo de almacenamiento tipo "Rest1,Rest2,..."
-    
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
@@ -45,8 +41,22 @@ public class Cliente {
         this.direcciones = direcciones;
         this.usuario = usuario;
     }
+    
     @ManyToMany
-    private List<Restaurante> Listarfavoritos = new ArrayList<>();
+    @JoinTable(
+        name = "cliente_favorito",
+        joinColumns = @JoinColumn(name = "cliente_id"),
+        inverseJoinColumns = @JoinColumn(name = "restaurante_id")
+    )
+    private List<Restaurante> favoritosList = new ArrayList<>();
+
+    public List<Restaurante> getFavoritosList() {
+        return favoritosList;
+    }
+
+    public void setFavoritosList(List<Restaurante> favoritosList) {
+        this.favoritosList = favoritosList;
+    }
 
     // Getters y setters
 
@@ -70,9 +80,6 @@ public class Cliente {
 
     public Usuario getUsuario() { return usuario; }
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
-    
-    public String getFavoritos() { return favoritos; }
-    public void setFavoritos(String favoritos) { this.favoritos = favoritos; }
 
 
     @Override

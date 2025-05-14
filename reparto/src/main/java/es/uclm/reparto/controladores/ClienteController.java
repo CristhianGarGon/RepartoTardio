@@ -50,29 +50,28 @@ public class ClienteController {
         Cliente cliente = clienteDAO.findById(usuario.getId()).orElse(null);
 
         if (cliente != null) {
-            model.addAttribute("favoritos", cliente.getFavoritos());
+            model.addAttribute("favoritos", cliente.getFavoritosList());
         }
 
-        return "verFavoritos"; // Debe existir en /templates
+        return "redirect:/cliente/verFavoritos"; // Debe existir en /templates
     }
 
     // Marcar como favorito
-    @PostMapping("/")
+    @PostMapping("/favorito/{id}")
     public String marcarFavorito(@PathVariable Long id, HttpSession session) {
         Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
-        Cliente cliente = (Cliente) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Cliente cliente = clienteDAO.findByUsuario(usuario);
 
         if (cliente != null && restaurante != null) {
-            // Añadimos el restaurante al campo favoritos (tipo CSV o similar)
-            String favoritos = cliente.getFavoritos() == null ? "" : cliente.getFavoritos();
-            if (!favoritos.contains(restaurante.getNombre())) {
-                favoritos += restaurante.getNombre() + ",";
-                cliente.setFavoritos(favoritos);
+            if (!cliente.getFavoritosList().contains(restaurante)) {
+                cliente.getFavoritosList().add(restaurante);
                 clienteDAO.save(cliente);
             }
         }
 
         return "redirect:/cliente/buscarRestaurantes";
     }
+
    
 }
