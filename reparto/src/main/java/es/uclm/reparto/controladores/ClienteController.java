@@ -14,64 +14,94 @@ import java.util.List;
 @RequestMapping("/cliente")
 public class ClienteController {
 
-    @Autowired private RestauranteDAO restauranteDAO;
-    @Autowired private ItemMenuDAO itemMenuDAO;
-    @Autowired private ClienteDAO clienteDAO;
-    
-    @GetMapping("/menu")
-    public String mostrarMenuCliente(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        model.addAttribute("usuario", usuario); // para mostrar el nick
-        return "clienteMenu"; // muestra clienteMenu.html
-    }
+	@Autowired private RestauranteDAO restauranteDAO;
+	@Autowired private ItemMenuDAO itemMenuDAO;
+	@Autowired private ClienteDAO clienteDAO;
+	@Autowired private PedidoDAO pedidoDAO;
 
-    // Mostrar todos los restaurantes
-    @GetMapping("/buscarRestaurantes")
-    public String buscarRestaurantes(Model model) {
-        model.addAttribute("restaurantes", restauranteDAO.findAll());
-        return "buscarRestaurantes";
-    }
+	@GetMapping("/menu")
+	public String mostrarMenuCliente(HttpSession session, Model model) {
+	    Usuario usuario = (Usuario) session.getAttribute("usuario");
+	    model.addAttribute("usuario", usuario);
+	    return "clienteMenu";
+	}
 
-    // Ver menú de un restaurante específico
-    @GetMapping("/verMenu/{id}")
-    public String verMenuRestaurante(@PathVariable Long id, Model model) {
-        Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
-        if (restaurante == null) return "redirect:/cliente/buscarRestaurantes";
+	@GetMapping("/buscarRestaurantes")
+	public String buscarRestaurantes(Model model) {
+	    model.addAttribute("restaurantes", restauranteDAO.findAll());
+	    return "buscarRestaurantes";
+	}
 
-        List<ItemMenu> menu = itemMenuDAO.findByRestaurante(restaurante);
-        model.addAttribute("restaurante", restaurante);
-        model.addAttribute("menu", menu);
-        return "verMenuRestaurante";
-    }
-    
-    @GetMapping("/verFavoritos")
-    public String verFavoritos(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Cliente cliente = clienteDAO.findById(usuario.getId()).orElse(null);
+	@GetMapping("/realizarPedido/{restauranteId}")
+	public String mostrarFormularioPedido(@PathVariable Long restauranteId, Model model) {
+	    Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
+	    if (restaurante == null) return "redirect:/cliente/buscarRestaurantes";
 
-        if (cliente != null) {
-            model.addAttribute("favoritos", cliente.getFavoritosList());
-        }
+	    List<ItemMenu> menu = itemMenuDAO.findAll(); // Si aún no filtras por restaurante
+	    model.addAttribute("restaurante", restaurante);
+	    model.addAttribute("menu", menu);
+	    return "realizarPedido";
+	}
 
-        return "redirect:/cliente/verFavoritos"; // Debe existir en /templates
-    }
+	@GetMapping("/verMenu/{id}")
+	public String verMenuRestaurante(@PathVariable Long id, Model model) {
+	    Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
+	    if (restaurante == null) return "redirect:/cliente/buscarRestaurantes";
 
-    // Marcar como favorito
-    @PostMapping("/favorito/{id}")
-    public String marcarFavorito(@PathVariable Long id, HttpSession session) {
-        Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Cliente cliente = clienteDAO.findByUsuario(usuario);
+	    List<ItemMenu> menu = itemMenuDAO.findAll(); // Si aún no filtras por restaurante
+	    model.addAttribute("restaurante", restaurante);
+	    model.addAttribute("menu", menu);
+	    return "verMenuRestaurante";
+	}
 
-        if (cliente != null && restaurante != null) {
-            if (!cliente.getFavoritosList().contains(restaurante)) {
-                cliente.getFavoritosList().add(restaurante);
-                clienteDAO.save(cliente);
-            }
-        }
+	@GetMapping("/verFavoritos")
+	public String verFavoritos(HttpSession session, Model model) {
+	    Usuario usuario = (Usuario) session.getAttribute("usuario");
+	    Cliente cliente = clienteDAO.findByUsuario(usuario);
 
-        return "redirect:/cliente/buscarRestaurantes";
-    }
+	    if (cliente != null) {
+	        model.addAttribute("favoritos", cliente.getFavoritosList());
+	    }
+
+	    return "verFavoritos";
+	}
+
+	@PostMapping("/realizarPedido")
+	public String procesarPedido(@RequestParam("itemIds") List<Long> itemIds,
+	                             @RequestParam("direccionEntrega") String direccionEntrega,
+	                             @RequestParam("restauranteId") Long restauranteId,
+	                             HttpSession session) {
+	    Usuario usuario = (Usuario) session.getAttribute("usuario");
+	    Cliente cliente = clienteDAO.findByUsuario(usuario);
+	    Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
+
+	    System.out.println("🔎 Usuario en sesión: " + usuario);
+	    System.out.println("🔎 Cliente encontrado: " + cliente);
+	    System.out.println("📦 Restaurante ID: " + restauranteId);
+	    System.out.println("📦 Restaurante encontrado: " + restaurante);
+	    System.out.println("📝 Items seleccionados: " + itemIds);
+
+	    if (cliente != null && restaurante != null && itemIds != null && !itemIds.isEmpty()) {
+	        List<ItemMenu> itemsSeleccionados = itemMenuDAO.findAllById(itemIds);
+	        double total = itemsSeleccionados.stream().mapToDouble(ItemMenu::getPrecio).sum();
+
+	        Pedido pedido = new Pedido();
+	        pedido.setCliente(cliente);
+	        pedido.setRestaurante(restaurante);
+	        pedido.setItems(itemsSeleccionados);
+	        pedido.setDireccionEntrega(direccionEntrega);
+	        pedido.setTotal(total);
+
+	        pedidoDAO.save(pedido);
+	        System.out.println("✅ Pedido guardado con ID: " + pedido.getId());
+	    } else {
+	        System.out.println("❌ No se pudo guardar el pedido. Datos nulos.");
+	    }
+
+	    return "redirect:/cliente/menu";
+	}
+
+
 
    
 }

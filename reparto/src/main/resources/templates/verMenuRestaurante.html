@@ -4,12 +4,18 @@
     <title>Menú del Restaurante</title>
 </head>
 <body>
-<h1 th:text="'Menú de ' + ${restaurante.nombre}"></h1>
+<h1 th:text="'Menú de ' + ${restaurante.nombre}">Menú</h1>
+
 <ul>
     <li th:each="item : ${menu}">
-        <span th:text="${item.nombre} + ' (' + ${item.tipo} + ') - ' + ${item.precio} + '€'"></span>
-        <!-- Aquí luego añadiremos botón para añadir al pedido -->
+        <span>
+            <span th:text="${item.nombre}"></span>
+            (<span th:text="${item.tipo}"></span>) -
+            <span th:text="${item.precio}"></span> €
+        </span>
     </li>
 </ul>
+
+<a th:href="@{/cliente/buscarRestaurantes}">Volver</a>
 </body>
 </html>

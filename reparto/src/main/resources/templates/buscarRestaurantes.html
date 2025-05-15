@@ -12,6 +12,7 @@
         <form th:action="@{/cliente/favorito/{id}(id=${restaurante.id})}" method="post" style="display:inline">
             <button type="submit">❤️</button>
         </form>
+		<a th:href="@{/cliente/realizarPedido/{id}(id=${restaurante.id})}">🛒 Realizar Pedido</a>
     </li>
 </ul>
 </body>

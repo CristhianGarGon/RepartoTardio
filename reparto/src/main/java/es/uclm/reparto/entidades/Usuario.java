@@ -69,7 +69,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return String.format("Usuario [id=%s, nombre=%s, apellido=%s, nick=%s, rol=%s]", 
-                             id, nickname, rol);
+    return String.format("Usuario [id=%s, nick=%s, rol=%s]",
+    id, nickname, rol);
     }
 }
