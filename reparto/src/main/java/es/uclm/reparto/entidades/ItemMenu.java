@@ -19,6 +19,7 @@ public class ItemMenu {
     private TipoItem tipo;
     
     @ManyToOne
+    @JoinColumn(name = "restaurante_id", nullable = false)
     private Restaurante restaurante;
 
     public enum TipoItem {

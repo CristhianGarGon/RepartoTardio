@@ -1,20 +1,15 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Restaurantes Favoritos</title>
-    <meta charset="UTF-8" />
+    <title>Favoritos</title>
 </head>
 <body>
-    <h1>Mis Restaurantes Favoritos</h1>
-
-    <ul>
-        <li th:each="restaurante : ${favoritos}">
-            <span th:text="${restaurante.nombre}">Nombre</span> -
-            <span th:text="${restaurante.tipoComida}">Tipo</span>
-            <a th:href="@{'/cliente/realizarPedido?restauranteId=' + ${restaurante.id}}">Hacer pedido</a>
-        </li>
-    </ul>
-
-    <a th:href="@{/cliente/Menu}">Volver al menú</a>
+<h1>Restaurantes Favoritos</h1>
+<ul>
+    <li th:each="rest : ${favoritos}">
+        <span th:text="${rest.nombre} + ' - ' + ${rest.direccion}"></span>
+    </li>
+</ul>
+<a th:href="@{/cliente/menu}">Volver</a>
 </body>
 </html>

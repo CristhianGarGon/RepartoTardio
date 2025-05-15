@@ -18,6 +18,7 @@ public class ClienteController {
 	@Autowired private ItemMenuDAO itemMenuDAO;
 	@Autowired private ClienteDAO clienteDAO;
 	@Autowired private PedidoDAO pedidoDAO;
+	@Autowired private RepartidorDAO repartidorDAO;
 
 	@GetMapping("/menu")
 	public String mostrarMenuCliente(HttpSession session, Model model) {
@@ -37,7 +38,7 @@ public class ClienteController {
 	    Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
 	    if (restaurante == null) return "redirect:/cliente/buscarRestaurantes";
 
-	    List<ItemMenu> menu = itemMenuDAO.findAll(); // Si aún no filtras por restaurante
+	    List<ItemMenu> menu = itemMenuDAO.findByRestaurante(restaurante);
 	    model.addAttribute("restaurante", restaurante);
 	    model.addAttribute("menu", menu);
 	    return "realizarPedido";
@@ -48,7 +49,7 @@ public class ClienteController {
 	    Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
 	    if (restaurante == null) return "redirect:/cliente/buscarRestaurantes";
 
-	    List<ItemMenu> menu = itemMenuDAO.findAll(); // Si aún no filtras por restaurante
+	    List<ItemMenu> menu = itemMenuDAO.findAll();
 	    model.addAttribute("restaurante", restaurante);
 	    model.addAttribute("menu", menu);
 	    return "verMenuRestaurante";
@@ -92,6 +93,16 @@ public class ClienteController {
 	        pedido.setDireccionEntrega(direccionEntrega);
 	        pedido.setTotal(total);
 
+	        // Asignar repartidor automáticamente
+	        Repartidor repartidorAsignado = repartidorDAO.findAll().stream()
+	                .sorted((r1, r2) -> Integer.compare(r2.getEficiencia(), r1.getEficiencia()))
+	                .findFirst().orElse(null);
+
+	        if (repartidorAsignado != null) {
+	            pedido.setRepartidor(repartidorAsignado);
+	            System.out.println("🚚 Repartidor asignado automáticamente: " + repartidorAsignado.getNombre());
+	        }
+
 	        pedidoDAO.save(pedido);
 	        System.out.println("✅ Pedido guardado con ID: " + pedido.getId());
 	    } else {
@@ -101,7 +112,4 @@ public class ClienteController {
 	    return "redirect:/cliente/menu";
 	}
 
-
-
-   
 }

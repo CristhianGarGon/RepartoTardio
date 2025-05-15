@@ -50,8 +50,14 @@ public class RestauranteController {
     }
 
     @GetMapping("/editarMenu")
-    public String mostrarFormularioEditarMenu(Model model) {
-        List<ItemMenu> items = itemMenuDAO.findAll();
+    public String mostrarFormularioEditarMenu(Model model, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Restaurante restaurante = restauranteDAO.findByUsuario(usuario);
+        if (restaurante == null) {
+            throw new RuntimeException("Restaurante no encontrado para el usuario");
+        }
+
+        List<ItemMenu> items = itemMenuDAO.findByRestaurante(restaurante);
         model.addAttribute("items", items);
         return "editarMenu";
     }

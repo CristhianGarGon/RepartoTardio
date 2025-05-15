@@ -15,6 +15,9 @@ public class Pedido {
 	@ManyToOne
 	private Restaurante restaurante;
 
+	@ManyToOne
+	private Repartidor repartidor;
+
 	@ManyToMany
 	@JoinTable(
 	    name = "pedido_item_menu",
@@ -29,7 +32,15 @@ public class Pedido {
 	@Column
 	private double total;
 
+	@Column
+	private boolean recogido;
+
+	@Column
+	private boolean entregado;
+
 	public Pedido() {}
+
+	// Getters y setters
 
 	public Long getId() { return id; }
 
@@ -48,4 +59,12 @@ public class Pedido {
 	public double getTotal() { return total; }
 	public void setTotal(double total) { this.total = total; }
 
+	public Repartidor getRepartidor() { return repartidor; }
+	public void setRepartidor(Repartidor repartidor) { this.repartidor = repartidor; }
+
+	public boolean isRecogido() { return recogido; }
+	public void setRecogido(boolean recogido) { this.recogido = recogido; }
+
+	public boolean isEntregado() { return entregado; }
+	public void setEntregado(boolean entregado) { this.entregado = entregado; }
 }

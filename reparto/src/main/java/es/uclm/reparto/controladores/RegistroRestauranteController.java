@@ -29,15 +29,17 @@ public class RegistroRestauranteController {
                                               @RequestParam String nickname,
                                               @RequestParam String password,
                                               Model model) {
-        // Guardar restaurante
-        restauranteDAO.save(restaurante);
-
+    	
         // Crear y guardar usuario asociado
         Usuario usuario = new Usuario();
         usuario.setNickname(nickname);
         usuario.setPassword(password);
         usuario.setRol("RESTAURANTE");
         usuarioDAO.save(usuario);
+        
+        // Guardar restaurante
+        restaurante.setUsuario(usuario);
+        restauranteDAO.save(restaurante);
 
         model.addAttribute("usuario", usuario);
         return "registroExitoso";

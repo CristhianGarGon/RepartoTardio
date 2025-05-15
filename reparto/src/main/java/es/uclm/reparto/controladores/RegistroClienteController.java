@@ -26,7 +26,8 @@ public class RegistroClienteController {
 	@PostMapping("/registroCliente")
 	public String procesarRegistroCliente(@ModelAttribute Cliente cliente,
 	                                      @RequestParam String nickname,
-	                                      @RequestParam String password) {
+	                                      @RequestParam String password,
+	                                      Model model) {
 	    // Crear y guardar el usuario
 	    Usuario u = new Usuario();
 	    u.setNickname(nickname);
@@ -40,7 +41,11 @@ public class RegistroClienteController {
 	    // Guardar el cliente
 	    clienteDAO.save(cliente);
 
+	    // Añadir al modelo para mostrar en la vista
+	    model.addAttribute("usuario", u);
+
 	    return "registroExitoso";
 	}
+
 
 }
