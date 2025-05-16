@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Buscar Restaurantes</title>
+</head>
+<body>
+<h1>Restaurantes Disponibles</h1>
+<ul>
+    <li th:each="restaurante : ${restaurantes}">
+        <span th:text="${restaurante.nombre} + ' - ' + ${restaurante.direccion}"></span>
+        <a th:href="@{/cliente/verMenu/{id}(id=${restaurante.id})}">Ver Menú</a>
+        <form th:action="@{/cliente/favorito/{id}(id=${restaurante.id})}" method="post" style="display:inline">
+            <button type="submit">❤️</button>
+        </form>
+        <a th:href="@{/cliente/realizarPedido/{id}(id=${restaurante.id})}">🛒 Realizar Pedido</a>
+    </li>
+</ul>
+<!-- Botón de volver al menú del cliente -->
+<a th:href="@{/cliente/menu}">← Volver al menú</a>
+</body>
+</html>

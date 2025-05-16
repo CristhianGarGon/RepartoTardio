@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recoger Pedido</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Pedidos Asignados No Recogidos</h1>
+    <ul>
+        <li th:each="pedido : ${pedidos}">
+            Pedido ID: <span th:text="${pedido.id}"></span> - 
+            Restaurante: <span th:text="${pedido.restaurante.nombre}"></span>
+            <form th:action="@{/repartidor/recoger/{id}(id=${pedido.id})}" method="post" style="display:inline">
+                <button type="submit">Registrar Recogida</button>
+            </form>
+        </li>
+    </ul>
+    <a th:href="@{/repartidorMenu}">← Volver al menú</a>
+</body>
+</html>

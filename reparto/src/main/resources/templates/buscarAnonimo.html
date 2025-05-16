@@ -1,0 +1,10 @@
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org"> 
+    <head> <title>Buscar Restaurantes</title> </head> 
+    <body> 
+        <h1>Restaurantes</h1> 
+        <ul> <li th:each="restaurante : ${restaurantes}"> 
+            <span th:text="${restaurante.nombre} + ' - ' + ${restaurante.direccion}"></span> 
+            <a th:href="@{/anonimo/verMenu/{id}(id=${restaurante.id})}">Ver Menú</a> </li> </ul> 
+        <a th:href="@{/anonimo}">Volver</a> 
+    </body> </html>

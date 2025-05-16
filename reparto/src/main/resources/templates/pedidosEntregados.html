@@ -1,0 +1,25 @@
+<!DOCTYPE html> <html xmlns:th="http://www.thymeleaf.org"> 
+    <head> <title>Pedidos Entregados</title> 
+    </head> 
+    <body> 
+        <h1>Pedidos Entregados</h1> 
+        <div th:if="${pedidos != null and !pedidos.isEmpty()}"> 
+            <table border="1"> <tr> <th>Restaurante</th> 
+                <th>Dirección</th> <th>Total</th> 
+                <th>Estado</th> 
+            </tr> 
+            <tr th:each="pedido : ${pedidos}"> 
+                <td th:text="${pedido.restaurante.nombre}">Restaurante</td> 
+                <td th:text="${pedido.direccionEntrega.calle + ', ' + 
+              pedido.direccionEntrega.numero + ', ' +
+              pedido.direccionEntrega.ciudad + ' (' +
+              pedido.direccionEntrega.codigoPostal.codigo + ')'}">Dirección</td>
+
+                <td th:text="${pedido.total} + ' €'">Total</td> 
+                <td>Entregado</td> </tr> 
+            </table> 
+        </div> 
+        <div th:if="${pedidos == null or pedidos.isEmpty()}"> <p>No tienes pedidos entregados.</p> </div>
+<a th:href="@{/cliente/menu}">Volver al menú</a>
+
+</body> </html>

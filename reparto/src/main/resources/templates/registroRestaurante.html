@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registro de Restaurante</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Registro de Restaurante</h1>
+    <form th:action="@{/registroRestaurante}" th:object="${restaurante}" method="post">
+        <p>
+            <label for="nombre">Nombre:</label>
+            <input type="text" th:field="*{nombre}" id="nombre" placeholder="Nombre del Restaurante" required />
+        </p>
+        <p>
+    		<label for="calle">Calle:</label>
+    		<input type="text" th:field="*{direccion.calle}" id="calle" placeholder="Calle" required />
+		</p>
+		<p>
+    		<label for="numero">Número:</label>
+    		<input type="text" th:field="*{direccion.numero}" id="numero" placeholder="Número" required />
+		</p>
+		<p>
+		    <label for="ciudad">Ciudad:</label>
+		    <input type="text" th:field="*{direccion.ciudad}" id="ciudad" placeholder="Ciudad" required />
+		</p>
+		<p>
+		    <label for="codigoPostal">Código Postal:</label>
+		    <input type="text" th:field="*{direccion.codigoPostal.codigo}" id="codigoPostal" placeholder="Código Postal" required />
+		</p>
+        <p>
+            <label for="nickname">Usuario:</label>
+            <input type="text" name="nickname" id="nickname" required />
+        </p>
+        <p>
+            <label for="password">Contraseña:</label>
+            <input type="password" name="password" id="password" required />
+        </p>
+        
+        <button type="submit">Registrar</button>
+    </form>
+</body>
+</html>

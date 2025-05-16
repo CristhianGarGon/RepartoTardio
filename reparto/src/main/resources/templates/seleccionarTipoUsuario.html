@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seleccionar Tipo de Usuario</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Seleccionar Tipo de Usuario</h1>
+    <form th:action="@{/seleccionarTipoUsuario}" method="post">
+        <label for="tipoUsuario">Tipo de Usuario:</label>
+        <select name="tipoUsuario" id="tipoUsuario" required>
+            <option value="CLIENTE">Cliente</option>
+            <option value="RESTAURANTE">Restaurante</option>
+            <option value="REPARTIDOR">Repartidor</option>
+        </select>
+        <button type="submit">Continuar</button>
+    </form>
+</body>
+</html>

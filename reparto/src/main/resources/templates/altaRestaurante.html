@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Alta de Restaurante</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Alta de Restaurante</h1>
+    <form th:action="@{/altaRestaurante}" th:object="${restaurante}" method="post">
+        <p>Nombre: <input type="text" th:field="*{nombre}" required /></p>
+        <p>Dirección: <input type="text" th:field="*{direccion}" required /></p>
+        <h2>Menú</h2>
+        <div th:each="item, iterStat : ${restaurante.menu}">
+            <p>Plato: <input type="text" th:field="*{menu[iterStat.index].nombre}" required /></p>
+            <p>Precio: <input type="number" th:field="*{menu[iterStat.index].precio}" step="0.01" required /></p>
+        </div>
+        <p>
+            <button type="button" th:onclick="addMenuItem()">Añadir Plato</button>
+        </p>
+        <script>
+            function addMenuItem() {
+                const menuContainer = document.querySelector('form div[th\\:each]');
+                const newItem = menuContainer.cloneNode(true);
+                newItem.querySelectorAll('input').forEach(input => input.value = '');
+                menuContainer.parentNode.appendChild(newItem);
+            }
+        </script>
+        <p>
+            <input type="submit" value="Registrar Restaurante" />
+        </p>
+    </form>
+</body>
+</html>

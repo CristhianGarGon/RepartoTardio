@@ -9,7 +9,7 @@ public class MenuController {
 
     @GetMapping("/")
     public String mostrarMenu(Model model) {
-        return "menu"; // Renderiza el archivo `menu.html`
+        return "menuInicial"; // Renderiza el archivo `menuInicial.html`
     }
 
     @GetMapping("/anonimo")
@@ -17,13 +17,4 @@ public class MenuController {
         return "anonimo"; // Renderiza el archivo `anonimo.html`
     }
 
-    @GetMapping("/registro-usuario")
-    public String registrarUsuario() {
-        return "registro"; // Renderiza el archivo `registro.html`
-    }
-
-    @GetMapping("/login")
-    public String iniciarSesion() {
-        return "login"; // Renderiza el archivo `login.html`
-    }
 }

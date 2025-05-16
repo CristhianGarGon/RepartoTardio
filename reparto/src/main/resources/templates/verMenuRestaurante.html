@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menú del Restaurante</title>
+</head>
+<body>
+<h1 th:text="'Menú de ' + ${restaurante.nombre}">Menú</h1>
+
+<ul>
+    <li th:each="item : ${menu}">
+        <span>
+            <span th:text="${item.nombre}"></span>
+            (<span th:text="${item.tipo}"></span>) -
+            <span th:text="${item.precio}"></span> €
+        </span>
+    </li>
+</ul>
+
+<a th:href="@{/cliente/buscarRestaurantes}">Volver</a>
+</body>
+</html>

@@ -1,22 +1,49 @@
-//package dominio.entidades;
+package es.uclm.reparto.entidades;
 
-//import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-//public class Restaurante extends Usuario {
+import jakarta.persistence.*;
 
-	//Collection<Pedido> pedidos;
-	//Collection<CartaMenu> cartasMenu;
-	//Direccion direccion;
-	//private String nombre;
-	//private String cif;
+@Entity
+public class Restaurante {
 
-	/**
-	 * 
-	 * @param idRestaurante
-	 */
-	//public List<ItemMenu> listarMenu(String idRestaurante) {
-		// TODO - implement Restaurante.listarMenu
-		//throw new UnsupportedOperationException();
-	//}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//}
+    private String nombre;
+
+    @OneToOne
+    private Usuario usuario;
+    
+    @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL)
+    private List<ItemMenu> menu = new ArrayList<>();
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "direccion_id")
+    private Direccion direccion;
+
+
+    // Getters y Setters
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
+
+    public String getNombre() { return nombre; }
+
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public Usuario getUsuario() { return usuario; }
+
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
+
+}

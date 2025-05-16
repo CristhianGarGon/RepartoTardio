@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Realizar Pedido</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+<h1 th:text="'Pedido en ' + ${restaurante.nombre}"></h1>
+
+<form th:action="@{/cliente/realizarPedido}" method="post">
+    <!-- Restaurante al que se hace el pedido -->
+    <input type="hidden" name="restauranteId" th:value="${restaurante.id}" />
+
+    <!-- Menú -->
+    <div th:each="item : ${menu}">
+        <label>
+            <input type="checkbox" name="itemIds" th:value="${item.id}" />
+            <span th:text="${item.nombre} + ' - ' + ${item.precio} + '€ (' + ${item.tipo} + ')'"></span>
+        </label>
+        <br/>
+    </div>
+
+    <h3>Dirección de entrega</h3>
+    <p>
+        <label for="calle">Calle:</label>
+        <input type="text" name="calle" id="calle" required />
+    </p>
+    <p>
+        <label for="numero">Número:</label>
+        <input type="text" name="numero" id="numero" required />
+    </p>
+    <p>
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" name="ciudad" id="ciudad" required />
+    </p>
+    <p>
+        <label for="codigoPostal">Código Postal:</label>
+        <input type="text" name="codigoPostal" id="codigoPostal" required />
+    </p>
+
+    <button type="submit">Confirmar Pedido</button>
+</form>
+
+<a th:href="@{/cliente/buscarRestaurantes}">← Volver</a>
+</body>
+</html>

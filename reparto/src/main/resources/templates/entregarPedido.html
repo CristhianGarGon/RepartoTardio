@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Entregar Pedido</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <h1>Pedidos Recogidos Pendientes de Entrega</h1>
+    <ul>
+        <li th:each="pedido : ${pedidos}">
+            Pedido ID: <span th:text="${pedido.id}"></span> - 
+            Dirección: <span th:text="${pedido.direccionEntrega.calle} + ', ' + 
+               pedido.direccionEntrega.numero + ', ' + 
+               pedido.direccionEntrega.ciudad + ' (' + 
+               pedido.direccionEntrega.codigoPostal.codigo + ')'"></span>
+
+            <form th:action="@{/repartidor/entregar/{id}(id=${pedido.id})}" method="post" style="display:inline">
+                <button type="submit">Registrar Entrega</button>
+            </form>
+        </li>
+    </ul>
+    <a th:href="@{/repartidorMenu}">← Volver al menú</a>
+</body>
+</html>

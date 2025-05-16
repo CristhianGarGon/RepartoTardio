@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menú Restaurante</title>
+</head>
+<body>
+    <h1>Bienvenido al panel del Restaurante</h1>
+    <ul>
+        <li><a th:href="@{/restaurante/crearMenu}">Crear nuevo ítem de menú</a></li>
+        <li><a th:href="@{/restaurante/editarMenu}">Editar menú existente</a></li>
+    </ul>
+    
+    <form th:action="@{/logout}" method="get" style="display:inline">
+    <button type="submit">🚪 Cerrar sesión</button>
+	</form>
+    
+</body>
+</html>
