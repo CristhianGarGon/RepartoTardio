@@ -61,4 +61,46 @@ public class RestauranteController {
         model.addAttribute("items", items);
         return "editarMenu";
     }
+    
+    @PostMapping("/eliminarItem/{id}")
+    public String eliminarItem(@PathVariable Long id, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Restaurante restaurante = restauranteDAO.findByUsuario(usuario);
+
+        if (restaurante == null) {
+            throw new RuntimeException("Restaurante no encontrado para el usuario");
+        }
+
+        ItemMenu item = itemMenuDAO.findById(id).orElse(null);
+        if (item != null && item.getRestaurante().getId().equals(restaurante.getId())) {
+            itemMenuDAO.delete(item);
+        }
+
+        return "redirect:/restaurante/editarMenu";
+    }
+
+    @PostMapping("/editarItem")
+    public String editarItem(@RequestParam Long id,
+                             @RequestParam String nombre,
+                             @RequestParam double precio,
+                             @RequestParam ItemMenu.TipoItem tipo,
+                             HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Restaurante restaurante = restauranteDAO.findByUsuario(usuario);
+
+        if (restaurante == null) {
+            throw new RuntimeException("Restaurante no encontrado para el usuario");
+        }
+
+        ItemMenu item = itemMenuDAO.findById(id).orElse(null);
+        if (item != null && item.getRestaurante().getId().equals(restaurante.getId())) {
+            item.setNombre(nombre);
+            item.setPrecio(precio);
+            item.setTipo(tipo);
+            itemMenuDAO.save(item);
+        }
+
+        return "redirect:/restaurante/editarMenu";
+    }
+
 }

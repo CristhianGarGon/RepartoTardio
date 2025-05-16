@@ -23,6 +23,17 @@
             <label for="eficiencia">Eficiencia:</label>
             <input type="number" th:field="*{eficiencia}" id="eficiencia" placeholder="Eficiencia" required />
         </p>
+        
+        <p>
+		    <label for="zonas">Códigos postales que cubre:</label>
+		    <select th:field="*{zonas}" multiple required>
+		        <option th:each="cp : ${codigosDisponibles}" 
+		                th:value="${cp.id}" 
+		                th:text="${cp.codigo}">
+		        </option>
+		    </select>
+		</p>
+		        
 
         <p>
             <label for="nickname">Usuario:</label>

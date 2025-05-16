@@ -19,6 +19,7 @@ public class ClienteController {
 	@Autowired private ClienteDAO clienteDAO;
 	@Autowired private PedidoDAO pedidoDAO;
 	@Autowired private RepartidorDAO repartidorDAO;
+	@Autowired private CodigoPostalDAO codigoPostalDAO;
 
 	@GetMapping("/menu")
 	public String mostrarMenuCliente(HttpSession session, Model model) {
@@ -66,41 +67,73 @@ public class ClienteController {
 
 	    return "verFavoritos";
 	}
+	
+	@GetMapping("/verPedidosEntregados")
+	public String verPedidosEntregados(HttpSession session, Model model) {
+	Usuario usuario = (Usuario) session.getAttribute("usuario");
+	Cliente cliente = clienteDAO.findByUsuario(usuario);
+
+	if (cliente != null) {
+	    List<Pedido> pedidosEntregados = pedidoDAO.findAll().stream()
+	            .filter(p -> p.getCliente().getId().equals(cliente.getId()) && p.isEntregado())
+	            .toList();
+	    model.addAttribute("pedidos", pedidosEntregados);
+	}
+
+	return "pedidosEntregados";
+	}
 
 	@PostMapping("/realizarPedido")
 	public String procesarPedido(@RequestParam("itemIds") List<Long> itemIds,
-	                             @RequestParam("direccionEntrega") String direccionEntrega,
 	                             @RequestParam("restauranteId") Long restauranteId,
+	                             @RequestParam("calle") String calle,
+	                             @RequestParam("numero") String numero,
+	                             @RequestParam("ciudad") String ciudad,
+	                             @RequestParam("codigoPostal") String cpString,
 	                             HttpSession session) {
 	    Usuario usuario = (Usuario) session.getAttribute("usuario");
 	    Cliente cliente = clienteDAO.findByUsuario(usuario);
 	    Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
 
-	    System.out.println("🔎 Usuario en sesión: " + usuario);
-	    System.out.println("🔎 Cliente encontrado: " + cliente);
-	    System.out.println("📦 Restaurante ID: " + restauranteId);
-	    System.out.println("📦 Restaurante encontrado: " + restaurante);
-	    System.out.println("📝 Items seleccionados: " + itemIds);
-
 	    if (cliente != null && restaurante != null && itemIds != null && !itemIds.isEmpty()) {
 	        List<ItemMenu> itemsSeleccionados = itemMenuDAO.findAllById(itemIds);
 	        double total = itemsSeleccionados.stream().mapToDouble(ItemMenu::getPrecio).sum();
+
+	        // Si el cliente no tiene dirección, se la creamos
+	        if (cliente.getDireccion() == null) {
+	            CodigoPostal codigoPostal = codigoPostalDAO.findByCodigo(cpString);
+	            if (codigoPostal == null) {
+	                codigoPostal = new CodigoPostal(cpString);
+	                codigoPostalDAO.save(codigoPostal);
+	            }
+
+	            Direccion nuevaDireccion = new Direccion();
+	            nuevaDireccion.setCalle(calle);
+	            nuevaDireccion.setNumero(numero);
+	            nuevaDireccion.setCiudad(ciudad);
+	            nuevaDireccion.setCodigoPostal(codigoPostal);
+
+	            cliente.setDireccion(nuevaDireccion);
+	            clienteDAO.save(cliente); // Guarda el cliente con la nueva dirección
+	        }
 
 	        Pedido pedido = new Pedido();
 	        pedido.setCliente(cliente);
 	        pedido.setRestaurante(restaurante);
 	        pedido.setItems(itemsSeleccionados);
-	        pedido.setDireccionEntrega(direccionEntrega);
+	        pedido.setDireccionEntrega(cliente.getDireccion()); // ahora sí tiene dirección
 	        pedido.setTotal(total);
 
-	        // Asignar repartidor automáticamente
+	        // Repartidor más eficiente para el código postal
+	        String cpPedido = cliente.getDireccion().getCodigoPostal().getCodigo();
 	        Repartidor repartidorAsignado = repartidorDAO.findAll().stream()
+	                .filter(r -> r.getZonas().stream().anyMatch(z -> z.getCodigo().equals(cpPedido)))
 	                .sorted((r1, r2) -> Integer.compare(r2.getEficiencia(), r1.getEficiencia()))
 	                .findFirst().orElse(null);
 
 	        if (repartidorAsignado != null) {
 	            pedido.setRepartidor(repartidorAsignado);
-	            System.out.println("🚚 Repartidor asignado automáticamente: " + repartidorAsignado.getNombre());
+	            System.out.println("🚚 Repartidor asignado: " + repartidorAsignado.getNombre());
 	        }
 
 	        pedidoDAO.save(pedido);
@@ -111,5 +144,6 @@ public class ClienteController {
 
 	    return "redirect:/cliente/menu";
 	}
+
 
 }

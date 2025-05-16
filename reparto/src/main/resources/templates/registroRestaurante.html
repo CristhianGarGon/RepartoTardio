@@ -12,9 +12,21 @@
             <input type="text" th:field="*{nombre}" id="nombre" placeholder="Nombre del Restaurante" required />
         </p>
         <p>
-            <label for="direccion">Dirección:</label>
-            <input type="text" th:field="*{direccion}" id="direccion" placeholder="Dirección" required />
-        </p>
+    		<label for="calle">Calle:</label>
+    		<input type="text" th:field="*{direccion.calle}" id="calle" placeholder="Calle" required />
+		</p>
+		<p>
+    		<label for="numero">Número:</label>
+    		<input type="text" th:field="*{direccion.numero}" id="numero" placeholder="Número" required />
+		</p>
+		<p>
+		    <label for="ciudad">Ciudad:</label>
+		    <input type="text" th:field="*{direccion.ciudad}" id="ciudad" placeholder="Ciudad" required />
+		</p>
+		<p>
+		    <label for="codigoPostal">Código Postal:</label>
+		    <input type="text" th:field="*{direccion.codigoPostal.codigo}" id="codigoPostal" placeholder="Código Postal" required />
+		</p>
         <p>
             <label for="nickname">Usuario:</label>
             <input type="text" name="nickname" id="nickname" required />

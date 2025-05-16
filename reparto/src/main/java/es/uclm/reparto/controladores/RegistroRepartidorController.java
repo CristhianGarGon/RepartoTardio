@@ -2,8 +2,13 @@ package es.uclm.reparto.controladores;
 
 import es.uclm.reparto.entidades.Repartidor;
 import es.uclm.reparto.entidades.Usuario;
+import es.uclm.reparto.entidades.CodigoPostal;
 import es.uclm.reparto.persistencia.RepartidorDAO;
 import es.uclm.reparto.persistencia.UsuarioDAO;
+import es.uclm.reparto.persistencia.CodigoPostalDAO;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,31 +22,42 @@ public class RegistroRepartidorController {
 
 	@Autowired
 	private UsuarioDAO usuarioDAO;
+	
+	@Autowired
+    private CodigoPostalDAO codigoPostalDAO;
 
 	@GetMapping("/registroRepartidor")
-	public String mostrarFormularioRegistro(Model model) {
-	    model.addAttribute("repartidor", new Repartidor());
-	    return "registroRepartidor";
-	}
+    public String mostrarFormularioRegistro(Model model) {
+        model.addAttribute("repartidor", new Repartidor());
+        model.addAttribute("codigosDisponibles", codigoPostalDAO.findAll());
+        return "registroRepartidor";
+    }
 
-	@PostMapping("/registroRepartidor")
-	public String procesarRegistro(@ModelAttribute Repartidor repartidor,
-	                               @RequestParam String nickname,
-	                               @RequestParam String password,
-	                               Model model) {
-	    Usuario usuario = new Usuario();
-	    usuario.setNickname(nickname);
-	    usuario.setPassword(password);
-	    usuario.setRol("REPARTIDOR");
-	    usuarioDAO.save(usuario);
+    @PostMapping("/registroRepartidor")
+    public String procesarRegistro(@ModelAttribute Repartidor repartidor,
+                                   @RequestParam String nickname,
+                                   @RequestParam String password,
+                                   @RequestParam List<Long> zonas, // IDs seleccionados
+                                   Model model) {
+        // Crear usuario
+        Usuario usuario = new Usuario();
+        usuario.setNickname(nickname);
+        usuario.setPassword(password);
+        usuario.setRol("REPARTIDOR");
+        usuarioDAO.save(usuario);
 
-	    repartidor.setUsuario(usuario);
-	    repartidorDAO.save(repartidor);
+        // Asignar usuario
+        repartidor.setUsuario(usuario);
 
-	    model.addAttribute("usuario", usuario); // Necesario para registroExitoso.html
-	    return "registroExitoso";
-	}
+        // Obtener objetos CodigoPostal desde los IDs
+        List<CodigoPostal> codigosPostales = codigoPostalDAO.findAllById(zonas);
+        repartidor.setZonas(codigosPostales);
 
+        // Guardar repartidor
+        repartidorDAO.save(repartidor);
 
+        model.addAttribute("usuario", usuario);
+        return "registroExitoso";
+    }
 
 }

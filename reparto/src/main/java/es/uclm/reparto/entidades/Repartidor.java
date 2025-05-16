@@ -25,6 +25,15 @@ public class Repartidor {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
+	
+	@ManyToMany
+	@JoinTable(
+	    name = "repartidor_codigos_postales",
+	    joinColumns = @JoinColumn(name = "repartidor_id"),
+	    inverseJoinColumns = @JoinColumn(name = "codigo_postal_id")
+	)
+	private List<CodigoPostal> zonas;
+
 
 	public Repartidor() {}
 
@@ -55,6 +64,17 @@ public class Repartidor {
 
 	public Usuario getUsuario() { return usuario; }
 	public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+	
+	// Getter y Setter para zonas (códigos postales que cubre el repartidor)
+
+	public List<CodigoPostal> getZonas() {
+	    return zonas;
+	}
+
+	public void setZonas(List<CodigoPostal> zonas) {
+	    this.zonas = zonas;
+	}
+
 
 	@Override
 	public String toString() {

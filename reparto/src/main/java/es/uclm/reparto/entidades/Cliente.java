@@ -24,21 +24,22 @@ public class Cliente {
     @Column
     private String pedidos;
 
-    @Column
-    private String direcciones;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "direccion_id")
+    private Direccion direccion;
 
     public Cliente() {}
 
-    public Cliente(String nombre, String apellidos, String dni, String pedidos, String direcciones, Usuario usuario) {
+    public Cliente(String nombre, String apellidos, String dni, String pedidos, Direccion direccion, Usuario usuario) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
         this.pedidos = pedidos;
-        this.direcciones = direcciones;
+        this.direccion = direccion;
         this.usuario = usuario;
     }
     
@@ -75,12 +76,16 @@ public class Cliente {
     public String getPedidos() { return pedidos; }
     public void setPedidos(String pedidos) { this.pedidos = pedidos; }
 
-    public String getDirecciones() { return direcciones; }
-    public void setDirecciones(String direcciones) { this.direcciones = direcciones; }
-
     public Usuario getUsuario() { return usuario; }
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    
+    public Direccion getDireccion() {
+        return direccion;
+    }
 
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
 
     @Override
     public String toString() {

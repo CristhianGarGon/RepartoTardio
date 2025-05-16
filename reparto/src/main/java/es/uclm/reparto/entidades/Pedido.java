@@ -26,8 +26,9 @@ public class Pedido {
 	)
 	private List<ItemMenu> items;
 
-	@Column
-	private String direccionEntrega;
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name = "direccion_id")
+	private Direccion direccionEntrega;
 
 	@Column
 	private double total;
@@ -53,8 +54,14 @@ public class Pedido {
 	public List<ItemMenu> getItems() { return items; }
 	public void setItems(List<ItemMenu> items) { this.items = items; }
 
-	public String getDireccionEntrega() { return direccionEntrega; }
-	public void setDireccionEntrega(String direccionEntrega) { this.direccionEntrega = direccionEntrega; }
+	public Direccion getDireccionEntrega() {
+	    return direccionEntrega;
+	}
+
+	public void setDireccionEntrega(Direccion direccionEntrega) {
+	    this.direccionEntrega = direccionEntrega;
+	}
+
 
 	public double getTotal() { return total; }
 	public void setTotal(double total) { this.total = total; }
