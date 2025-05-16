@@ -6,7 +6,6 @@ import es.uclm.reparto.entidades.CodigoPostal;
 import es.uclm.reparto.persistencia.RestauranteDAO;
 import es.uclm.reparto.persistencia.CodigoPostalDAO;
 import es.uclm.reparto.persistencia.UsuarioDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +13,17 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class RegistroRestauranteController {
 
-    @Autowired
-    private RestauranteDAO restauranteDAO;
+    private final RestauranteDAO restauranteDAO;
+    private final UsuarioDAO usuarioDAO;
+    private final CodigoPostalDAO codigoPostalDAO;
 
-    @Autowired
-    private UsuarioDAO usuarioDAO;
-    
-    @Autowired
-    private CodigoPostalDAO codigoPostalDAO;
+    public RegistroRestauranteController(RestauranteDAO restauranteDAO,
+                                         UsuarioDAO usuarioDAO,
+                                         CodigoPostalDAO codigoPostalDAO) {
+        this.restauranteDAO = restauranteDAO;
+        this.usuarioDAO = usuarioDAO;
+        this.codigoPostalDAO = codigoPostalDAO;
+    }
 
     @GetMapping("/registroRestaurante")
     public String mostrarFormularioRegistroRestaurante(Model model) {
@@ -51,12 +53,11 @@ public class RegistroRestauranteController {
             codigoPostalDAO.save(codigoPostal);
         }
         restaurante.getDireccion().setCodigoPostal(codigoPostal);
-        
+
         // Guardar restaurante (con dirección en cascada)
         restauranteDAO.save(restaurante);
 
         model.addAttribute("usuario", usuario);
         return "registroExitoso";
     }
-
 }
