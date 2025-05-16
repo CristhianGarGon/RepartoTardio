@@ -10,4 +10,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RestauranteDAO extends JpaRepository<Restaurante, Long> {
     Restaurante findByUsuario(Usuario usuario);
     List<Restaurante> findByNombreContainingIgnoreCase(String filtro);
-}
+}	

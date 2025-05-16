@@ -17,15 +17,4 @@ public class MenuController {
         return "anonimo"; // Renderiza el archivo `anonimo.html`
     }
 
-    // ❌ ELIMINAR ESTE MÉTODO DUPLICADO
-    // @GetMapping("/seleccionarTipoUsuario")
-    // public String registrarUsuario() {
-    //     return "seleccionarTipoUsuario";
-    // }
-
-    /*
-    @GetMapping("/login")
-    public String iniciarSesion() {
-        return "login"; // Renderiza el archivo `login.html`
-    } */
 }

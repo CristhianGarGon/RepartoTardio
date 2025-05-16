@@ -68,6 +68,42 @@ public class ClienteController {
 	    return "verFavoritos";
 	}
 	
+	@PostMapping("/eliminarFavorito/{id}")
+	public String eliminarDeFavoritos(@PathVariable Long id, HttpSession session) {
+	    Usuario usuario = (Usuario) session.getAttribute("usuario");
+	    Cliente cliente = clienteDAO.findByUsuario(usuario);
+	    Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
+
+	    if (cliente != null && restaurante != null) {
+	        cliente.getFavoritosList().remove(restaurante);
+	        clienteDAO.save(cliente);
+	        System.out.println("🗑️ Restaurante eliminado de favoritos: " + restaurante.getNombre());
+	    }
+
+	    return "redirect:/cliente/verFavoritos";
+	}
+
+	
+	@PostMapping("/favorito/{id}")
+	public String añadirAFavoritos(@PathVariable Long id, HttpSession session) {
+	    Usuario usuario = (Usuario) session.getAttribute("usuario");
+	    Cliente cliente = clienteDAO.findByUsuario(usuario);
+	    Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
+
+	    if (cliente != null && restaurante != null) {
+	        if (!cliente.getFavoritosList().contains(restaurante)) {
+	            cliente.getFavoritosList().add(restaurante);
+	            clienteDAO.save(cliente);
+	            System.out.println("⭐ Restaurante añadido a favoritos: " + restaurante.getNombre());
+	        } else {
+	            System.out.println("⚠️ El restaurante ya está en favoritos.");
+	        }
+	    }
+
+	    return "redirect:/cliente/buscarRestaurantes";
+	}
+
+	
 	@GetMapping("/verPedidosEntregados")
 	public String verPedidosEntregados(HttpSession session, Model model) {
 	Usuario usuario = (Usuario) session.getAttribute("usuario");

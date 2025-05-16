@@ -8,8 +8,15 @@
 <ul>
     <li th:each="rest : ${favoritos}">
         <span th:text="${rest.nombre} + ' - ' + ${rest.direccion}"></span>
+
+        <!-- Botón para eliminar de favoritos -->
+        <form th:action="@{/cliente/eliminarFavorito/{id}(id=${rest.id})}" method="post" style="display:inline">
+            <button type="submit" onclick="return confirm('¿Eliminar de favoritos?')">🗑️</button>
+        </form>
     </li>
 </ul>
-<a th:href="@{/cliente/menu}">Volver</a>
+
+<!-- Botón de volver al menú del cliente -->
+<a th:href="@{/cliente/menu}">← Volver al menú</a>
 </body>
 </html>
