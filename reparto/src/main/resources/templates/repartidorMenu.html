@@ -10,5 +10,9 @@
         <li><a th:href="@{/repartidor/recogerPedido}">Registrar Recogida de Pedido</a></li>
         <li><a th:href="@{/repartidor/entregarPedido}">Registrar Entrega de Pedido</a></li>
     </ul>
+    <form th:action="@{/logout}" method="get" style="display:inline">
+    <button type="submit">🚪 Cerrar sesión</button>
+	</form>
+    
 </body>
 </html>

@@ -39,4 +39,11 @@ public class LoginController {
         model.addAttribute("error", "Usuario o contraseña incorrectos");
         return "login";
     }
+    
+    @GetMapping("/logout")
+    public String cerrarSesion(HttpSession session) {
+        session.invalidate(); // Cierra la sesión del usuario
+        return "redirect:/login"; // Redirige al formulario de login
+    }
+
 }

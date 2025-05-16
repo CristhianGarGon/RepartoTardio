@@ -14,5 +14,10 @@
         <li><a th:href="@{/cliente/realizarPedido}">Realizar Pedido</a></li>
         <li><a th:href="@{/cliente/verPedidosEntregados}">Ver Pedidos Entregados</a></li>
     </ul>
+    
+    <form th:action="@{/logout}" method="get" style="display:inline">
+    <button type="submit">🚪 Cerrar sesión</button>
+	</form>
+    
 </body>
 </html>
