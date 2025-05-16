@@ -15,27 +15,29 @@ import java.util.List;
 @RequestMapping("/anonimo")
 public class AnonimoController {
 
-@Autowired
-private RestauranteDAO restauranteDAO;
+    private final RestauranteDAO restauranteDAO;
+    private final ItemMenuDAO itemMenuDAO;
 
-@Autowired
-private ItemMenuDAO itemMenuDAO;
+    @Autowired
+    public AnonimoController(RestauranteDAO restauranteDAO, ItemMenuDAO itemMenuDAO) {
+        this.restauranteDAO = restauranteDAO;
+        this.itemMenuDAO = itemMenuDAO;
+    }
 
-@GetMapping("/buscar")
-public String buscarRestaurantes(Model model) {
-    model.addAttribute("restaurantes", restauranteDAO.findAll());
-    return "buscarAnonimo"; // nueva vista sin botones de acción
-}
+    @GetMapping("/buscar")
+    public String buscarRestaurantes(Model model) {
+        model.addAttribute("restaurantes", restauranteDAO.findAll());
+        return "buscarAnonimo"; // nueva vista sin botones de acción
+    }
 
-@GetMapping("/verMenu/{id}")
-public String verMenu(@PathVariable Long id, Model model) {
-    Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
-    if (restaurante == null) return "redirect:/anonimo/buscar";
+    @GetMapping("/verMenu/{id}")
+    public String verMenu(@PathVariable Long id, Model model) {
+        Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
+        if (restaurante == null) return "redirect:/anonimo/buscar";
 
-    List<ItemMenu> menu = itemMenuDAO.findByRestaurante(restaurante);
-    model.addAttribute("restaurante", restaurante);
-    model.addAttribute("menu", menu);
-    return "verMenuAnonimo"; // nueva vista simplificada
-}
-
+        List<ItemMenu> menu = itemMenuDAO.findByRestaurante(restaurante);
+        model.addAttribute("restaurante", restaurante);
+        model.addAttribute("menu", menu);
+        return "verMenuAnonimo"; // nueva vista simplificada
+    }
 }
