@@ -45,5 +45,14 @@ public class Restaurante {
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+    
+    public List<ItemMenu> getMenu() {
+        return menu;
+    }
+
+    public void setMenu(List<ItemMenu> menu) {
+        this.menu = menu;
+    }
+
 
 }
