@@ -24,6 +24,12 @@ public class RepartidorController {
         this.repartidorDAO = repartidorDAO;
         this.usuarioDAO = usuarioDAO;
     }
+    
+    @GetMapping("/menu")
+    public String mostrarMenuRepartidor() {
+        return "repartidorMenu";  
+    }
+
 
     @GetMapping("/notificaciones")
     public String mostrarPedidosPendientes(Model model) {
@@ -95,7 +101,7 @@ public class RepartidorController {
                 .toList();
         System.out.println("📦 Pedidos para entregar: " + pedidos.size());
         model.addAttribute("pedidos", pedidos);
-        return "entregarPedido"; // Asegúrate que el archivo se llama así
+        return "entregarPedido"; 
     }
 
     @PostMapping("/entregar/{id}")

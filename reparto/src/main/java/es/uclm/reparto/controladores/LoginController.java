@@ -36,7 +36,7 @@ public class LoginController {
                 case "RESTAURANTE":
                     return "redirect:/restaurante/menu";
                 case "REPARTIDOR":
-                    return "repartidorMenu";
+                    return "redirect:/repartidor/menu";
                 default:
                     return "menu";
             }

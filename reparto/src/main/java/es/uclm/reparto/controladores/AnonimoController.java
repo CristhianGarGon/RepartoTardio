@@ -38,6 +38,6 @@ public class AnonimoController {
         List<ItemMenu> menu = itemMenuDAO.findByRestaurante(restaurante);
         model.addAttribute("restaurante", restaurante);
         model.addAttribute("menu", menu);
-        return "verMenuAnonimo"; // nueva vista simplificada
+        return "verMenuAnonimo"; 
     }
 }
