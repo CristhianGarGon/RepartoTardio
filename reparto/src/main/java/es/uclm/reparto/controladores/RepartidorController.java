@@ -12,6 +12,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/repartidor")
 public class RepartidorController {
+	
+	private static final String PEDIDOS = "pedidos";
+	private static final String USUARIO = "usuario";
 
     private final PedidoDAO pedidoDAO;
     private final RepartidorDAO repartidorDAO;
@@ -37,14 +40,14 @@ public class RepartidorController {
                 .filter(p -> p.getRepartidor() == null)
                 .toList();
         System.out.println("📦 Pedidos sin repartidor: " + pedidos.size());
-        model.addAttribute("pedidos", pedidos);
+        model.addAttribute(PEDIDOS, pedidos);
         return "notificaciones";
     }
 
     @PostMapping("/asignar/{pedidoId}")
     public String asignarPedido(@PathVariable Long pedidoId, HttpSession session) {
         Pedido pedido = pedidoDAO.findById(pedidoId).orElse(null);
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
         System.out.println("🧾 Asignando pedido ID: " + pedidoId);
         System.out.println("👤 Usuario sesión: " + usuario);
         if (pedido != null && usuario != null) {
@@ -63,7 +66,7 @@ public class RepartidorController {
 
     @GetMapping("/recogerPedido")
     public String mostrarPedidosAsignados(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
         System.out.println("👤 Usuario sesión (recoger): " + usuario);
         Repartidor repartidor = repartidorDAO.findAll().stream()
                 .filter(r -> r.getUsuario().getId().equals(usuario.getId()))
@@ -73,7 +76,7 @@ public class RepartidorController {
                 .filter(p -> p.getRepartidor() != null && p.getRepartidor().equals(repartidor) && !p.isRecogido())
                 .toList();
         System.out.println("📦 Pedidos asignados no recogidos: " + pedidos.size());
-        model.addAttribute("pedidos", pedidos);
+        model.addAttribute(PEDIDOS, pedidos);
         return "recogerPedido";
     }
 
@@ -90,7 +93,7 @@ public class RepartidorController {
 
     @GetMapping("/entregarPedido")
     public String mostrarPedidosParaEntrega(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
         System.out.println("👤 Usuario sesión (entregar): " + usuario);
         Repartidor repartidor = repartidorDAO.findAll().stream()
                 .filter(r -> r.getUsuario().getId().equals(usuario.getId()))
@@ -100,7 +103,7 @@ public class RepartidorController {
                 .filter(p -> p.getRepartidor() != null && p.getRepartidor().equals(repartidor) && p.isRecogido() && !p.isEntregado())
                 .toList();
         System.out.println("📦 Pedidos para entregar: " + pedidos.size());
-        model.addAttribute("pedidos", pedidos);
+        model.addAttribute(PEDIDOS, pedidos);
         return "entregarPedido"; 
     }
 

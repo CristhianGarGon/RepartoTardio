@@ -16,10 +16,6 @@ public class CodigoPostal {
     @ManyToMany(mappedBy = "zonas")
     private List<Repartidor> repartidores;
     
-    @OneToMany(mappedBy = "codigoPostal")
-    private List<Direccion> direcciones;
-
-
     // --- Constructores ---
 
     public CodigoPostal() {
@@ -54,17 +50,6 @@ public class CodigoPostal {
     public void setRepartidores(List<Repartidor> repartidores) {
         this.repartidores = repartidores;
     }
-    
- // Getter y Setter para direcciones que usan este código postal
-
-    public List<Direccion> getDirecciones() {
-        return direcciones;
-    }
-
-    public void setDirecciones(List<Direccion> direcciones) {
-        this.direcciones = direcciones;
-    }
-
 
     // --- toString (opcional) ---
 
