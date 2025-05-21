@@ -10,17 +10,27 @@ import es.uclm.reparto.controladores.RegistroUsuarioController;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+
 
 @WebMvcTest(RegistroUsuarioController.class)
-public class RegistroUsuarioControllerTest {
+class RegistroUsuarioControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc;
 
     @Test
-    public void testMostrarSeleccionTipoUsuario() throws Exception {
+    void testMostrarSeleccionTipoUsuario() throws Exception {
         mockMvc.perform(get("/seleccionarTipoUsuario"))
-               .andExpect(status().isOk())
-               .andExpect(view().name("seleccionarTipoUsuario"));
+                .andExpect(status().isOk())
+                .andExpect(view().name("seleccionarTipoUsuario"));
     }
+
+    @Test
+    void testProcesarSeleccionCliente() throws Exception {
+        mockMvc.perform(post("/seleccionarTipoUsuario")
+                .param("tipoUsuario", "CLIENTE"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/registroCliente"));
+    }
+
 }

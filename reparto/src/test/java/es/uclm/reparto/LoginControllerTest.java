@@ -13,18 +13,22 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(LoginController.class)
-public class LoginControllerTest {
+class LoginControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
-    private UsuarioDAO usuarioDAO;
+    @Autowired private MockMvc mockMvc;
+    @MockBean private UsuarioDAO usuarioDAO;
 
     @Test
-    public void testMostrarLogin() throws Exception {
+    void testMostrarLogin() throws Exception {
         mockMvc.perform(get("/login"))
-               .andExpect(status().isOk())
-               .andExpect(view().name("login"));
+                .andExpect(status().isOk())
+                .andExpect(view().name("login"));
+    }
+
+    @Test
+    void testLogout() throws Exception {
+        mockMvc.perform(get("/logout"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/login"));
     }
 }

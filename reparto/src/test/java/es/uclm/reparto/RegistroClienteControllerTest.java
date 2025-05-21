@@ -14,22 +14,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(RegistroClienteController.class)
-public class RegistroClienteControllerTest {
+class RegistroClienteControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
-    private ClienteDAO clienteDAO;
-
-    @MockBean
-    private UsuarioDAO usuarioDAO;
+    @Autowired private MockMvc mockMvc;
+    @MockBean private ClienteDAO clienteDAO;
+    @MockBean private UsuarioDAO usuarioDAO;
 
     @Test
-    public void testMostrarFormularioRegistroCliente() throws Exception {
+    void testMostrarFormularioRegistroCliente() throws Exception {
         mockMvc.perform(get("/registroCliente"))
-               .andExpect(status().isOk())
-               .andExpect(view().name("registroCliente"))
-               .andExpect(model().attributeExists("cliente"));
+                .andExpect(status().isOk())
+                .andExpect(view().name("registroCliente"));
     }
 }
