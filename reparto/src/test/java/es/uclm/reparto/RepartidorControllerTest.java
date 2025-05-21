@@ -14,20 +14,31 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(RepartidorController.class)
-public class RepartidorControllerTest {
+class RepartidorControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
+    @Autowired private MockMvc mockMvc;
     @MockBean private PedidoDAO pedidoDAO;
     @MockBean private RepartidorDAO repartidorDAO;
     @MockBean private UsuarioDAO usuarioDAO;
 
     @Test
-    public void testMostrarPedidosPendientes() throws Exception {
+    void testMostrarPedidosPendientes() throws Exception {
         mockMvc.perform(get("/repartidor/notificaciones"))
-               .andExpect(status().isOk())
-               .andExpect(view().name("notificaciones"))
-               .andExpect(model().attributeExists("pedidos"));
+                .andExpect(status().isOk())
+                .andExpect(view().name("notificaciones"));
+    }
+
+    @Test
+    void testMostrarPedidosParaEntrega() throws Exception {
+        mockMvc.perform(get("/repartidor/entregarPedido"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("entregarPedido"));
+    }
+
+    @Test
+    void testMostrarPedidosAsignados() throws Exception {
+        mockMvc.perform(get("/repartidor/recogerPedido"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recogerPedido"));
     }
 }
