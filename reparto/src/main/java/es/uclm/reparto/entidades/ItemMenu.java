@@ -18,6 +18,10 @@ public class ItemMenu {
     @Enumerated(EnumType.STRING)
     private TipoItem tipo;
     
+    /**
+     * Asociación necesaria para que un item pertenezca a un restaurante específico.
+     * Se mantiene esta relación pese a la posible detección de dependencia cíclica por motivos funcionales.
+     */
     @ManyToOne
     @JoinColumn(name = "restaurante_id", nullable = false)
     private Restaurante restaurante;

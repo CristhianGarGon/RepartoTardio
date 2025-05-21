@@ -1,5 +1,7 @@
 package es.uclm.reparto.entidades;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,7 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Usuario {
+public class Usuario implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +31,7 @@ public class Usuario {
     }
 
     // Constructor con parámetros
-    public Usuario(String nombre, String apellido, String usuario, String password, String rol) {
+    public Usuario(String usuario, String password, String rol) {
         this.nickname = usuario;
         this.password = password;
         this.rol = rol;

@@ -13,6 +13,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/cliente")
 public class ClienteController {
+	
+	private static final String USUARIO = "usuario";
+	private static final String REDIRECT_BUSCAR_RESTAURANTES = "redirect:/cliente/buscarRestaurantes";
+
 
     private final RestauranteDAO restauranteDAO;
     private final ItemMenuDAO itemMenuDAO;
@@ -38,8 +42,8 @@ public class ClienteController {
 
     @GetMapping("/menu")
     public String mostrarMenuCliente(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        model.addAttribute("usuario", usuario);
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
+        model.addAttribute(USUARIO, usuario);
         return "clienteMenu";
     }
 
@@ -52,7 +56,7 @@ public class ClienteController {
     @GetMapping("/realizarPedido/{restauranteId}")
     public String mostrarFormularioPedido(@PathVariable Long restauranteId, Model model) {
         Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
-        if (restaurante == null) return "redirect:/cliente/buscarRestaurantes";
+        if (restaurante == null) return REDIRECT_BUSCAR_RESTAURANTES;
         List<ItemMenu> menu = itemMenuDAO.findByRestaurante(restaurante);
         model.addAttribute("restaurante", restaurante);
         model.addAttribute("menu", menu);
@@ -62,7 +66,7 @@ public class ClienteController {
     @GetMapping("/verMenu/{id}")
     public String verMenuRestaurante(@PathVariable Long id, Model model) {
         Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
-        if (restaurante == null) return "redirect:/cliente/buscarRestaurantes";
+        if (restaurante == null) return REDIRECT_BUSCAR_RESTAURANTES;
         List<ItemMenu> menu = itemMenuDAO.findAll();
         model.addAttribute("restaurante", restaurante);
         model.addAttribute("menu", menu);
@@ -71,7 +75,7 @@ public class ClienteController {
 
     @GetMapping("/verFavoritos")
     public String verFavoritos(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
         Cliente cliente = clienteDAO.findByUsuario(usuario);
         if (cliente != null) {
             model.addAttribute("favoritos", cliente.getFavoritosList());
@@ -81,7 +85,7 @@ public class ClienteController {
 
     @PostMapping("/eliminarFavorito/{id}")
     public String eliminarDeFavoritos(@PathVariable Long id, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
         Cliente cliente = clienteDAO.findByUsuario(usuario);
         Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
         if (cliente != null && restaurante != null) {
@@ -94,7 +98,7 @@ public class ClienteController {
 
     @PostMapping("/favorito/{id}")
     public String añadirAFavoritos(@PathVariable Long id, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
         Cliente cliente = clienteDAO.findByUsuario(usuario);
         Restaurante restaurante = restauranteDAO.findById(id).orElse(null);
         if (cliente != null && restaurante != null) {
@@ -106,12 +110,12 @@ public class ClienteController {
                 System.out.println("⚠️ El restaurante ya está en favoritos.");
             }
         }
-        return "redirect:/cliente/buscarRestaurantes";
+        return REDIRECT_BUSCAR_RESTAURANTES;
     }
 
     @GetMapping("/verPedidosEntregados")
     public String verPedidosEntregados(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
         Cliente cliente = clienteDAO.findByUsuario(usuario);
         if (cliente != null) {
             List<Pedido> pedidosEntregados = pedidoDAO.findAll().stream()
@@ -130,7 +134,7 @@ public class ClienteController {
                                  @RequestParam("ciudad") String ciudad,
                                  @RequestParam("codigoPostal") String cpString,
                                  HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
         Cliente cliente = clienteDAO.findByUsuario(usuario);
         Restaurante restaurante = restauranteDAO.findById(restauranteId).orElse(null);
         if (cliente != null && restaurante != null && itemIds != null && !itemIds.isEmpty()) {

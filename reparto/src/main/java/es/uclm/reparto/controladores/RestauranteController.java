@@ -15,6 +15,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/restaurante")
 public class RestauranteController {
+	
+	private static final String USUARIO = "usuario";
+	private static final String REDIRECT_EDITAR_MENU = "redirect:/restaurante/editarMenu";
+
 
     private final ItemMenuDAO itemMenuDAO;
     private final RestauranteDAO restauranteDAO;
@@ -38,18 +42,18 @@ public class RestauranteController {
 
     @PostMapping("/crearMenu")
     public String procesarFormularioCrearMenu(@ModelAttribute ItemMenu itemMenu, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
         Restaurante restaurante = restauranteDAO.findByUsuario(usuario);
         if (restaurante != null) {
             itemMenu.setRestaurante(restaurante);
             itemMenuDAO.save(itemMenu);
         }
-        return "redirect:/restaurante/editarMenu";
+        return REDIRECT_EDITAR_MENU;
     }
 
     @GetMapping("/editarMenu")
     public String mostrarFormularioEditarMenu(Model model, HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
         Restaurante restaurante = restauranteDAO.findByUsuario(usuario);
         if (restaurante == null) {
             throw new RuntimeException("Restaurante no encontrado para el usuario");
@@ -70,7 +74,7 @@ public class RestauranteController {
         if (item != null && item.getRestaurante().getId().equals(restaurante.getId())) {
             itemMenuDAO.delete(item);
         }
-        return "redirect:/restaurante/editarMenu";
+        return REDIRECT_EDITAR_MENU;
     }
 
     @PostMapping("/editarItem")
@@ -79,7 +83,7 @@ public class RestauranteController {
                              @RequestParam double precio,
                              @RequestParam ItemMenu.TipoItem tipo,
                              HttpSession session) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute(USUARIO);
         Restaurante restaurante = restauranteDAO.findByUsuario(usuario);
         if (restaurante == null) {
             throw new RuntimeException("Restaurante no encontrado para el usuario");
@@ -91,6 +95,6 @@ public class RestauranteController {
             item.setTipo(tipo);
             itemMenuDAO.save(item);
         }
-        return "redirect:/restaurante/editarMenu";
+        return REDIRECT_EDITAR_MENU;
     }
 }

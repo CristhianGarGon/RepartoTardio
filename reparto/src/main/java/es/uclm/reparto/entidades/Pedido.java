@@ -39,7 +39,9 @@ public class Pedido {
 	@Column
 	private boolean entregado;
 
-	public Pedido() {}
+	public Pedido() {
+		//Constructor innecesario
+	}
 
 	// Getters y setters
 
